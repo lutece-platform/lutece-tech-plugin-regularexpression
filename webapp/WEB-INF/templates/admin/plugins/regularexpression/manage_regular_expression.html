@@ -1,19 +1,14 @@
-<div class="row">
-	<div class="col-xs-12 col-sm-12 col-md-12">
-		<div class="box box-danger">
-			<div class="box-header">
-				<h3 class="box-title">#i18n{regularexpression.manage_regular_expression.title}</h3>
-				<div class="box-tools pull-right">
-					<form class="form-inline" method="post"  action="jsp/admin/plugins/regularexpression/CreateRegularExpression.jsp" >
-						<button class="btn btn-primary btn-flat btn-xs" type="submit" >
-							<i class="fa fa-plus"></i>&nbsp;#i18n{regularexpression.manage_regular_expression.button_create}
-						</button>
-					</form>
-        </div>
-      </div>
-      <div class="box-body table-responsive">
+<@row> 
+	<@columns>
+		<@box>
+			<@boxHeader title='#i18n{regularexpression.manage_regular_expression.title}'>
+				<@tform class='form-inline' method='post' action='jsp/admin/plugins/regularexpression/CreateRegularExpression.jsp'>
+					<@button type='submit' title='#i18n{regularexpression.manage_regular_expression.button_create}' showTitleXs=false showTitleSm=false buttonIcon='plus' size='sm' />
+				</@tform>
+			</@boxHeader>
+			<@boxBody>
 				<@paginationAdmin paginator=paginator combo=1 showcount=0 />
-				<table class="table table-hover table-striped">
+				<@table>
 					<thead>
 						<tr>
 						  <th>#i18n{regularexpression.manage_regular_expression.row_title}</th>
@@ -27,18 +22,14 @@
 							<td>${expression.title}</td>
 							<td>${expression.value}</td>
 							<td>
-								<a class="btn btn-primary btn-xs btn-flat" href="jsp/admin/plugins/regularexpression/ModifyRegularExpression.jsp?id_expression=${expression.idExpression}"  title="null" >
-									<i class="fa fa-pencil"></i>
-								</a>
-								<a class="btn btn-danger btn-xs btn-flat" href="jsp/admin/plugins/regularexpression/ConfirmRemoveRegularExpression.jsp?id_expression=${expression.idExpression}"  title="#i18n{regularexpression.manage_regular_expression.alt_delete}" >
-									<i class="fa fa-trash"></i>
-								</a>
+								<@aButton href='jsp/admin/plugins/regularexpression/ModifyRegularExpression.jsp?id_expression=${expression.idExpression}' buttonIcon='pencil' size='sm' />
+								<@aButton href='jsp/admin/plugins/regularexpression/ConfirmRemoveRegularExpression.jsp?id_expression=${expression.idExpression}' title='#i18n{regularexpression.manage_regular_expression.alt_delete}' showTitle=false buttonIcon='trash' color='btn-danger' size='sm' />
 							</td>
 						</tr>
 					 </#list>
 					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
-</div>
+				</@table> 
+			</@boxBody>
+		</@box>
+	</@columns>
+</@row>

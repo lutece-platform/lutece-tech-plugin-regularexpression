@@ -1,60 +1,22 @@
  <#include "/admin/util/editor/editor.html" />
-<div class="row"> 
-	<div class="col-xs-12 col-sm-12 col-md-12">
-		<div class="box box-danger">
-			<div class="box-header">
-				<h3 class="box-title">#i18n{regularexpression.create_regular_expression.title}</h3>
-            </div>
-            <div class="box-body">
-				<form class="form-horizontal" method="post" action="jsp/admin/plugins/regularexpression/DoCreateRegularExpression.jsp" >
-				<div class="form-group">
-					<label class="control-label col-xs-12 col-sm-12 col-md-3 col-lg-3" for="title" >#i18n{regularexpression.create_regular_expression.label_title} *</label>
-						<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-						<input type="text" id="title" name="title" maxlength="20" class="form-control">
-						<span class="help-block"></span>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="control-label col-xs-12 col-sm-12 col-md-3 col-lg-3"  for="value" >#i18n{regularexpression.create_regular_expression.label_value} * </label>
-					<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-						<input type="text" id="value" name="value" class="form-control" value="" >
-						<span class="help-block"></span>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="control-label col-xs-12 col-sm-12 col-md-3 col-lg-3" for="valid_exemple">#i18n{regularexpression.create_regular_expression.label_valid_exemple} * </label>
-					<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-						<input type="text" name="valid_exemple" value="" class="form-control">
-						<span class="help-block">#i18n{regularexpression.create_regular_expression.label_valid_exemple_comment}</span>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="control-label col-xs-12 col-sm-12 col-md-3 col-lg-3" for="information_message">	#i18n{regularexpression.create_regular_expression.label_information_message} * </label>
-					<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-						<textarea class="richtext" name="information_message" id="information_message" rows="2" ></textarea>
-						<span class="help-block">#i18n{regularexpression.create_regular_expression.label_information_message_comment}</span>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="control-label col-xs-12 col-sm-12 col-md-3 col-lg-3" for="error_message">#i18n{regularexpression.create_regular_expression.label_error_message} * </label>
-					<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-						<textarea class="richtext" name="error_message" id="error_message" rows="2"></textarea>
-						<span class="help-block">#i18n{regularexpression.create_regular_expression.label_error_message_comment} </span>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-md-offset-3">
-						<button class="btn btn-primary btn-flat" type="submit" >
-							<i class="fa fa-check"></i>&nbsp;#i18n{regularexpression.create_regular_expression.button_save}
-						</button>
-						<a class="btn btn-default btn-flat" href="jsp/admin/plugins/regularexpression/ManageRegularExpression.jsp" >
-							<i class="fa fa-remove"></i>&nbsp;#i18n{regularexpression.create_regular_expression.button_cancel}
-						</a>
-					</div>
-				</div>
-				</form> 
-			</div>
-		</div>
-	</div>
-</div>
+<@row> 
+	<@columns>
+		<@box>
+			<@boxHeader title='#i18n{regularexpression.create_regular_expression.title}' />
+			<@boxBody>
+				<@tform method='post' action='jsp/admin/plugins/regularexpression/DoCreateRegularExpression.jsp'>
+					<@formGroup labelFor='title' labelKey='#i18n{regularexpression.create_regular_expression.label_title}' helpKey='' mandatory=true>						<@input type='text' id='title' name='title' maxlength=20 />					</@formGroup>
+					<@formGroup labelFor='value' labelKey='#i18n{regularexpression.create_regular_expression.label_value}' helpKey='' mandatory=true>						<@input type='text' id='value' name='value' value='' />					</@formGroup>
+					<@formGroup labelFor='valid_exemple' labelKey='#i18n{regularexpression.create_regular_expression.label_valid_exemple}' helpKey='#i18n{regularexpression.create_regular_expression.label_valid_exemple_comment}' mandatory=true>						<@input type='text' name='valid_exemple' value='' />					</@formGroup>
+					<@formGroup labelFor='information_message' labelKey='#i18n{regularexpression.create_regular_expression.label_information_message}' helpKey='#i18n{regularexpression.create_regular_expression.label_information_message_comment}' mandatory=true>						<@input type='textarea' richtext=true name='information_message' id='information_message' rows=2 />					</@formGroup>
+					<@formGroup labelFor='error_message' labelKey='#i18n{regularexpression.create_regular_expression.label_error_message}' helpKey='#i18n{regularexpression.create_regular_expression.label_error_message_comment} ' mandatory=true>						<@input type='textarea' richtext=true name='error_message' id='error_message' rows=2 />					</@formGroup>
+					<@formGroup>
+						<@button type='submit' title='#i18n{regularexpression.create_regular_expression.button_save}' buttonIcon='check' />
+						<@aButton href='jsp/admin/plugins/regularexpression/ManageRegularExpression.jsp' title='#i18n{regularexpression.create_regular_expression.button_cancel}' buttonIcon='times' color='btn-default' />
+					</@formGroup>
+				</@tform> 
+			</@boxBody>>
+		</@box>
+	</@columns>
+</@row>
 <@initEditor />
