@@ -34,7 +34,6 @@
 package fr.paris.lutece.plugins.regularexpression.web;
 
 import fr.paris.lutece.plugins.regularexpression.business.RegularExpressionHome;
-import fr.paris.lutece.plugins.regularexpression.service.RegularExpressionPlugin;
 import fr.paris.lutece.portal.business.regularexpression.RegularExpression;
 import fr.paris.lutece.portal.service.admin.AdminUserService;
 import fr.paris.lutece.portal.service.i18n.I18nService;
@@ -49,6 +48,7 @@ import fr.paris.lutece.portal.service.util.AppLogService;
 import fr.paris.lutece.portal.service.util.AppPathService;
 import fr.paris.lutece.portal.service.util.AppPropertiesService;
 import fr.paris.lutece.portal.web.admin.PluginAdminPageJspBean;
+import fr.paris.lutece.util.html.AbstractPaginator;
 import fr.paris.lutece.util.html.HtmlTemplate;
 import fr.paris.lutece.util.html.Paginator;
 import fr.paris.lutece.util.url.UrlItem;
@@ -57,14 +57,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * This class provides the user interface to manage regular expression( manage, create, modify, remove)
  */
 public class RegularExpressionJspBean extends PluginAdminPageJspBean
 {
+    private static final long serialVersionUID = 4005299802051287019L;
+
     public static final String RIGHT_REGULAR_EXPRESSION_MANAGEMENT = "REGULAR_EXPRESSION_MANAGEMENT";
 
     // templates
@@ -130,13 +135,13 @@ public class RegularExpressionJspBean extends PluginAdminPageJspBean
     {
         Plugin plugin = getPlugin( );
         Locale locale = getLocale( );
-        HashMap model = new HashMap( );
+        Map<String, Object> model = new HashMap<>( );
         List<RegularExpression> listRegularExpression = RegularExpressionHome.getList( plugin );
 
-        _strCurrentPageIndexExport = Paginator.getPageIndex( request, Paginator.PARAMETER_PAGE_INDEX, _strCurrentPageIndexExport );
-        _nItemsPerPageForm = Paginator.getItemsPerPage( request, Paginator.PARAMETER_ITEMS_PER_PAGE, _nItemsPerPageForm, _nDefaultItemsPerPage );
+        _strCurrentPageIndexExport = AbstractPaginator.getPageIndex( request, AbstractPaginator.PARAMETER_PAGE_INDEX, _strCurrentPageIndexExport );
+        _nItemsPerPageForm = AbstractPaginator.getItemsPerPage( request, AbstractPaginator.PARAMETER_ITEMS_PER_PAGE, _nItemsPerPageForm, _nDefaultItemsPerPage );
 
-        Paginator paginator = new Paginator( listRegularExpression, _nItemsPerPageForm, getJspManageRegularExpression( request ), PARAMETER_PAGE_INDEX,
+        Paginator<RegularExpression> paginator = new Paginator<>( listRegularExpression, _nItemsPerPageForm, getJspManageRegularExpression( request ), PARAMETER_PAGE_INDEX,
                 _strCurrentPageIndexExport );
         model.put( MARK_PAGINATOR, paginator );
         model.put( MARK_NB_ITEMS_PER_PAGE, EMPTY_STRING + _nItemsPerPageForm );
@@ -144,9 +149,6 @@ public class RegularExpressionJspBean extends PluginAdminPageJspBean
         setPageTitleProperty( PROPERTY_MANAGE_REGULAR_EXPRESSION_TITLE );
 
         HtmlTemplate templateList = AppTemplateService.getTemplate( TEMPLATE_MANAGE_REGULAR_EXPRESSION, locale, model );
-
-        // ReferenceList refMailingList;
-        // refMailingList=AdminMailingListService.getMailingLists(adminUser);
         return getAdminPage( templateList.getHtml( ) );
     }
 
@@ -160,7 +162,7 @@ public class RegularExpressionJspBean extends PluginAdminPageJspBean
     public String getCreateRegularExpression( HttpServletRequest request )
     {
         Locale locale = getLocale( );
-        HashMap model = new HashMap( );
+        Map<String, Object> model = new HashMap<>( );
         model.put( MARK_WEBAPP_URL, AppPathService.getBaseUrl( request ) );
         model.put( MARK_LOCALE, AdminUserService.getLocale( request ).getLanguage( ) );
         setPageTitleProperty( PROPERTY_CREATE_REGULAR_EXPRESSION_TITLE );
@@ -205,7 +207,7 @@ public class RegularExpressionJspBean extends PluginAdminPageJspBean
         Locale locale = getLocale( );
         RegularExpression regularExpression;
         String strIdExpression = request.getParameter( PARAMETER_ID_EXPRESSION );
-        HashMap model = new HashMap( );
+        Map<String, Object> model = new HashMap<>( );
 
         int nIdExpression = -1;
 
@@ -317,7 +319,7 @@ public class RegularExpressionJspBean extends PluginAdminPageJspBean
     public String doRemoveRegularExpression( HttpServletRequest request )
     {
         String strIdExpression = request.getParameter( PARAMETER_ID_EXPRESSION );
-        ArrayList<String> listErrors = new ArrayList<String>( );
+        ArrayList<String> listErrors = new ArrayList<>( );
 
         int nIdExpression = -1;
 
@@ -363,8 +365,7 @@ public class RegularExpressionJspBean extends PluginAdminPageJspBean
      */
     private String getRegularExpressionData( HttpServletRequest request, RegularExpression regularExpression )
     {
-        IRegularExpressionService service = (IRegularExpressionService) SpringContextService.getPluginBean( RegularExpressionPlugin.PLUGIN_NAME,
-                "regularExpressionService" );
+        IRegularExpressionService service = SpringContextService.getBean( "regularExpressionService" );
         String strTitle = ( request.getParameter( PARAMETER_TITLE ) == null ) ? null : request.getParameter( PARAMETER_TITLE ).trim( );
         String strValue = ( request.getParameter( PARAMETER_VALUE ) == null ) ? null : request.getParameter( PARAMETER_VALUE ).trim( );
         String strValidExemple = ( request.getParameter( PARAMETER_VALID_EXEMPLE ) == null ) ? null : request.getParameter( PARAMETER_VALID_EXEMPLE ).trim( );
@@ -374,29 +375,29 @@ public class RegularExpressionJspBean extends PluginAdminPageJspBean
 
         String strFieldError = EMPTY_STRING;
 
-        if ( ( strTitle == null ) || strTitle.equals( EMPTY_STRING ) )
+        if ( StringUtils.isEmpty( strTitle ) )
         {
             strFieldError = FIELD_TITLE;
         }
 
         else
-            if ( ( strValue == null ) || strValue.equals( EMPTY_STRING ) )
+            if ( StringUtils.isEmpty( strValue ) )
             {
                 strFieldError = FIELD_VALUE;
             }
 
             else
-                if ( ( strValidExemple == null ) || strValidExemple.equals( "" ) )
+                if ( StringUtils.isEmpty( strValidExemple ) )
                 {
                     strFieldError = FIELD_VALID_EXEMPLE;
                 }
                 else
-                    if ( ( strInformationMessage == null ) || strInformationMessage.equals( "" ) )
+                    if ( StringUtils.isEmpty( strInformationMessage ) )
                     {
                         strFieldError = FIELD_INFORMATION_MESSAGE;
                     }
                     else
-                        if ( ( strErrorMessage == null ) || strErrorMessage.equals( "" ) )
+                        if ( StringUtils.isEmpty( strErrorMessage ) )
                         {
                             strFieldError = FIELD_ERROR_MESSAGE;
                         }

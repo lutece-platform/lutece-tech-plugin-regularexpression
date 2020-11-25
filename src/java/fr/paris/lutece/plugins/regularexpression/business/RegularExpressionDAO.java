@@ -66,20 +66,15 @@ public final class RegularExpressionDAO implements IRegularExpressionDAO
      */
     public int newPrimaryKey( Plugin plugin )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK, plugin );
-        daoUtil.executeQuery( );
-
-        int nKey;
-
-        if ( !daoUtil.next( ) )
+        int nKey = 1;
+        try (  DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK, plugin ) )
         {
-            // if the table is empty
-            nKey = 1;
+            daoUtil.executeQuery( );
+            if ( daoUtil.next( ) )
+            {
+                nKey = daoUtil.getInt( 1 ) + 1;
+            }
         }
-
-        nKey = daoUtil.getInt( 1 ) + 1;
-        daoUtil.free( );
-
         return nKey;
     }
 
@@ -93,16 +88,17 @@ public final class RegularExpressionDAO implements IRegularExpressionDAO
      */
     public void insert( RegularExpression regularExpression, Plugin plugin )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin );
-        regularExpression.setIdExpression( newPrimaryKey( plugin ) );
-        daoUtil.setInt( 1, regularExpression.getIdExpression( ) );
-        daoUtil.setString( 2, regularExpression.getTitle( ) );
-        daoUtil.setString( 3, regularExpression.getValue( ) );
-        daoUtil.setString( 4, regularExpression.getValidExemple( ) );
-        daoUtil.setString( 5, regularExpression.getInformationMessage( ) );
-        daoUtil.setString( 6, regularExpression.getErrorMessage( ) );
-        daoUtil.executeUpdate( );
-        daoUtil.free( );
+        try (  DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin ) )
+        {
+            regularExpression.setIdExpression( newPrimaryKey( plugin ) );
+            daoUtil.setInt( 1, regularExpression.getIdExpression( ) );
+            daoUtil.setString( 2, regularExpression.getTitle( ) );
+            daoUtil.setString( 3, regularExpression.getValue( ) );
+            daoUtil.setString( 4, regularExpression.getValidExemple( ) );
+            daoUtil.setString( 5, regularExpression.getInformationMessage( ) );
+            daoUtil.setString( 6, regularExpression.getErrorMessage( ) );
+            daoUtil.executeUpdate( );
+        }
     }
 
     /**
@@ -116,25 +112,23 @@ public final class RegularExpressionDAO implements IRegularExpressionDAO
      */
     public RegularExpression load( int nId, Plugin plugin )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_FIND_BY_PRIMARY_KEY, plugin );
-        daoUtil.setInt( 1, nId );
-        daoUtil.executeQuery( );
-
         RegularExpression regularExpression = null;
-
-        if ( daoUtil.next( ) )
+        try (  DAOUtil daoUtil = new DAOUtil( SQL_QUERY_FIND_BY_PRIMARY_KEY, plugin ) )
         {
-            regularExpression = new RegularExpression( );
-            regularExpression.setIdExpression( daoUtil.getInt( 1 ) );
-            regularExpression.setTitle( daoUtil.getString( 2 ) );
-            regularExpression.setValue( daoUtil.getString( 3 ) );
-            regularExpression.setValidExemple( daoUtil.getString( 4 ) );
-            regularExpression.setInformationMessage( daoUtil.getString( 5 ) );
-            regularExpression.setErrorMessage( daoUtil.getString( 6 ) );
+            daoUtil.setInt( 1, nId );
+            daoUtil.executeQuery( );
+    
+            if ( daoUtil.next( ) )
+            {
+                regularExpression = new RegularExpression( );
+                regularExpression.setIdExpression( daoUtil.getInt( 1 ) );
+                regularExpression.setTitle( daoUtil.getString( 2 ) );
+                regularExpression.setValue( daoUtil.getString( 3 ) );
+                regularExpression.setValidExemple( daoUtil.getString( 4 ) );
+                regularExpression.setInformationMessage( daoUtil.getString( 5 ) );
+                regularExpression.setErrorMessage( daoUtil.getString( 6 ) );
+            }
         }
-
-        daoUtil.free( );
-
         return regularExpression;
     }
 
@@ -148,10 +142,11 @@ public final class RegularExpressionDAO implements IRegularExpressionDAO
      */
     public void delete( int nIdExpression, Plugin plugin )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin );
-        daoUtil.setInt( 1, nIdExpression );
-        daoUtil.executeUpdate( );
-        daoUtil.free( );
+        try (  DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin ) )
+        {
+            daoUtil.setInt( 1, nIdExpression );
+            daoUtil.executeUpdate( );
+        }
     }
 
     /**
@@ -164,16 +159,17 @@ public final class RegularExpressionDAO implements IRegularExpressionDAO
      */
     public void store( RegularExpression regularExpression, Plugin plugin )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin );
-        daoUtil.setInt( 1, regularExpression.getIdExpression( ) );
-        daoUtil.setString( 2, regularExpression.getTitle( ) );
-        daoUtil.setString( 3, regularExpression.getValue( ) );
-        daoUtil.setString( 4, regularExpression.getValidExemple( ) );
-        daoUtil.setString( 5, regularExpression.getInformationMessage( ) );
-        daoUtil.setString( 6, regularExpression.getErrorMessage( ) );
-        daoUtil.setInt( 7, regularExpression.getIdExpression( ) );
-        daoUtil.executeUpdate( );
-        daoUtil.free( );
+        try (  DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin ) )
+        {
+            daoUtil.setInt( 1, regularExpression.getIdExpression( ) );
+            daoUtil.setString( 2, regularExpression.getTitle( ) );
+            daoUtil.setString( 3, regularExpression.getValue( ) );
+            daoUtil.setString( 4, regularExpression.getValidExemple( ) );
+            daoUtil.setString( 5, regularExpression.getInformationMessage( ) );
+            daoUtil.setString( 6, regularExpression.getErrorMessage( ) );
+            daoUtil.setInt( 7, regularExpression.getIdExpression( ) );
+            daoUtil.executeUpdate( );
+        }
     }
 
     /**
@@ -185,26 +181,23 @@ public final class RegularExpressionDAO implements IRegularExpressionDAO
      */
     public List<RegularExpression> selectListRegularExpression( Plugin plugin )
     {
-        List<RegularExpression> regularExpressionList = new ArrayList<RegularExpression>( );
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin );
-        daoUtil.executeQuery( );
-
-        RegularExpression regularExpression = null;
-
-        while ( daoUtil.next( ) )
+        List<RegularExpression> regularExpressionList = new ArrayList<>( );
+        try (  DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin ) )
         {
-            regularExpression = new RegularExpression( );
-            regularExpression.setIdExpression( daoUtil.getInt( 1 ) );
-            regularExpression.setTitle( daoUtil.getString( 2 ) );
-            regularExpression.setValue( daoUtil.getString( 3 ) );
-            regularExpression.setValidExemple( daoUtil.getString( 4 ) );
-            regularExpression.setInformationMessage( daoUtil.getString( 5 ) );
-            regularExpression.setErrorMessage( daoUtil.getString( 6 ) );
-            regularExpressionList.add( regularExpression );
+            daoUtil.executeQuery( );
+
+            while ( daoUtil.next( ) )
+            {
+                RegularExpression regularExpression = new RegularExpression( );
+                regularExpression.setIdExpression( daoUtil.getInt( 1 ) );
+                regularExpression.setTitle( daoUtil.getString( 2 ) );
+                regularExpression.setValue( daoUtil.getString( 3 ) );
+                regularExpression.setValidExemple( daoUtil.getString( 4 ) );
+                regularExpression.setInformationMessage( daoUtil.getString( 5 ) );
+                regularExpression.setErrorMessage( daoUtil.getString( 6 ) );
+                regularExpressionList.add( regularExpression );
+            }
         }
-
-        daoUtil.free( );
-
         return regularExpressionList;
     }
 }
