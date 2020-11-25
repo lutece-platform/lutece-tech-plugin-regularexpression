@@ -42,7 +42,9 @@ public class RegularExpressionPlugin extends PluginDefaultImplementation
     /**
      * Initialize the plugin regularexpression
      */
+    @Override
     public void init( )
     {
+        // Nothing to init
     }
 }
