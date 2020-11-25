@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2017, Mairie de Paris
+ * Copyright (c) 2002-2020, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -40,7 +40,6 @@ import fr.paris.lutece.portal.service.spring.SpringContextService;
 
 import java.util.List;
 
-
 /**
  * This class provides instances management methods (create, find, ...) for RegularExpression objects
  */
@@ -53,16 +52,18 @@ public final class RegularExpressionHome
     /**
      * Private constructor - this class need not be instantiated
      */
-    private RegularExpressionHome(  )
+    private RegularExpressionHome( )
     {
     }
 
     /**
      * Creation of an instance of regular expression
      *
-     * @param regularExpression The instance of the RegularExpression which contains the informations to store
-     * @param plugin the Plugin
-      */
+     * @param regularExpression
+     *            The instance of the RegularExpression which contains the informations to store
+     * @param plugin
+     *            the Plugin
+     */
     public static void create( RegularExpression regularExpression, Plugin plugin )
     {
         _dao.insert( regularExpression, plugin );
@@ -71,8 +72,10 @@ public final class RegularExpressionHome
     /**
      * Update of the regular expression which is specified in parameter
      *
-     * @param regularExpression The instance of the RegularExpression which contains the informations to update
-     * @param plugin the Plugin
+     * @param regularExpression
+     *            The instance of the RegularExpression which contains the informations to update
+     * @param plugin
+     *            the Plugin
      *
      */
     public static void update( RegularExpression regularExpression, Plugin plugin )
@@ -83,8 +86,10 @@ public final class RegularExpressionHome
     /**
      * Remove the regular expression whose identifier is specified in parameter
      *
-     * @param nIdExpression The reportingProject Id
-     * @param plugin the Plugin
+     * @param nIdExpression
+     *            The reportingProject Id
+     * @param plugin
+     *            the Plugin
      */
     public static void remove( int nIdExpression, Plugin plugin )
     {
@@ -97,8 +102,10 @@ public final class RegularExpressionHome
     /**
      * Returns an instance of a regular expression whose identifier is specified in parameter
      *
-     * @param nKey The regularExpression primary key
-     * @param plugin the Plugin
+     * @param nKey
+     *            The regularExpression primary key
+     * @param plugin
+     *            the Plugin
      * @return an instance of RegularExpression
      */
     public static RegularExpression findByPrimaryKey( int nKey, Plugin plugin )
@@ -107,10 +114,12 @@ public final class RegularExpressionHome
     }
 
     /**
-         * Load the data of all the regular expression and returns them in a  list
-         * @param plugin the plugin
-         * @return  the list of regularexpression
-         */
+     * Load the data of all the regular expression and returns them in a list
+     * 
+     * @param plugin
+     *            the plugin
+     * @return the list of regularexpression
+     */
     public static List<RegularExpression> getList( Plugin plugin )
     {
         return _dao.selectListRegularExpression( plugin );

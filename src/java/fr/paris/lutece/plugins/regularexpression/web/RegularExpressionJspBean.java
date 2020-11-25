@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2017, Mairie de Paris
+ * Copyright (c) 2002-2020, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -60,21 +60,19 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
-
 /**
- * This class provides the user interface to manage regular expression( manage,
- * create, modify, remove)
+ * This class provides the user interface to manage regular expression( manage, create, modify, remove)
  */
 public class RegularExpressionJspBean extends PluginAdminPageJspBean
 {
     public static final String RIGHT_REGULAR_EXPRESSION_MANAGEMENT = "REGULAR_EXPRESSION_MANAGEMENT";
 
-    //	templates
+    // templates
     private static final String TEMPLATE_MANAGE_REGULAR_EXPRESSION = "admin/plugins/regularexpression/manage_regular_expression.html";
     private static final String TEMPLATE_CREATE_REGULAR_EXPRESSION = "admin/plugins/regularexpression/create_regular_expression.html";
     private static final String TEMPLATE_MODIFY_REGULAR_EXPRESSION = "admin/plugins/regularexpression/modify_regular_expression.html";
 
-    //	Markers
+    // Markers
     private static final String MARK_EXPRESSION_LIST = "expression_list";
     private static final String MARK_EXPPRESSION = "expression";
     private static final String MARK_PAGINATOR = "paginator";
@@ -82,7 +80,7 @@ public class RegularExpressionJspBean extends PluginAdminPageJspBean
     private static final String MARK_WEBAPP_URL = "webapp_url";
     private static final String MARK_LOCALE = "locale";
 
-    //	parameters form
+    // parameters form
     private static final String PARAMETER_ID_EXPRESSION = "id_expression";
     private static final String PARAMETER_TITLE = "title";
     private static final String PARAMETER_VALUE = "value";
@@ -91,10 +89,10 @@ public class RegularExpressionJspBean extends PluginAdminPageJspBean
     private static final String PARAMETER_ERROR_MESSAGE = "error_message";
     private static final String PARAMETER_PAGE_INDEX = "page_index";
 
-    //	 other constants
+    // other constants
     private static final String EMPTY_STRING = "";
 
-    //	message
+    // message
     private static final String MESSAGE_CONFIRM_REMOVE_EXPRESSION = "regularexpression.message.confirm_remove_regular_expression";
     private static final String MESSAGE_MANDATORY_FIELD = "regularexpression.message.mandatory.field";
     private static final String MESSAGE_REGULAR_EXPRESSION_FORMAT_NOT_VALIDE = "regularexpression.message.regular_expression_format_not_valide";
@@ -106,78 +104,82 @@ public class RegularExpressionJspBean extends PluginAdminPageJspBean
     private static final String FIELD_INFORMATION_MESSAGE = "regularexpression.create_regular_expression.label_information_message";
     private static final String FIELD_ERROR_MESSAGE = "regularexpression.create_regular_expression.label_error_message";
 
-    //	properties
+    // properties
     private static final String PROPERTY_ITEM_PER_PAGE = "regularexpression.itemsPerPage";
     private static final String PROPERTY_MANAGE_REGULAR_EXPRESSION_TITLE = "regularexpression.manage_regular_expression.page_title";
     private static final String PROPERTY_MODIFY_REGULAR_EXPRESSION_TITLE = "regularexpression.modify_regular_expression.title";
     private static final String PROPERTY_CREATE_REGULAR_EXPRESSION_TITLE = "regularexpression.create_regular_expression.title";
 
-    //Jsp Definition
+    // Jsp Definition
     private static final String JSP_MANAGE_REGULAR_EXPRESSION = "jsp/admin/plugins/regularexpression/ManageRegularExpression.jsp";
     private static final String JSP_DO_REMOVE_REGULAR_EXPRESSION = "jsp/admin/plugins/regularexpression/DoRemoveRegularExpression.jsp";
 
-    //	session fields
+    // session fields
     private int _nDefaultItemsPerPage = AppPropertiesService.getPropertyInt( PROPERTY_ITEM_PER_PAGE, 15 );
     private String _strCurrentPageIndexExport;
     private int _nItemsPerPageForm;
 
     /**
      * Return management regular expression ( list of regular expression )
-     * @param request The Http request
+     * 
+     * @param request
+     *            The Http request
      * @return Html form
      */
     public String getManageRegularExpression( HttpServletRequest request )
     {
-        Plugin plugin = getPlugin(  );
-        Locale locale = getLocale(  );
-        HashMap model = new HashMap(  );
+        Plugin plugin = getPlugin( );
+        Locale locale = getLocale( );
+        HashMap model = new HashMap( );
         List<RegularExpression> listRegularExpression = RegularExpressionHome.getList( plugin );
 
-        _strCurrentPageIndexExport = Paginator.getPageIndex( request, Paginator.PARAMETER_PAGE_INDEX,
-                _strCurrentPageIndexExport );
-        _nItemsPerPageForm = Paginator.getItemsPerPage( request, Paginator.PARAMETER_ITEMS_PER_PAGE,
-                _nItemsPerPageForm, _nDefaultItemsPerPage );
+        _strCurrentPageIndexExport = Paginator.getPageIndex( request, Paginator.PARAMETER_PAGE_INDEX, _strCurrentPageIndexExport );
+        _nItemsPerPageForm = Paginator.getItemsPerPage( request, Paginator.PARAMETER_ITEMS_PER_PAGE, _nItemsPerPageForm, _nDefaultItemsPerPage );
 
-        Paginator paginator = new Paginator( listRegularExpression, _nItemsPerPageForm,
-                getJspManageRegularExpression( request ), PARAMETER_PAGE_INDEX, _strCurrentPageIndexExport );
+        Paginator paginator = new Paginator( listRegularExpression, _nItemsPerPageForm, getJspManageRegularExpression( request ), PARAMETER_PAGE_INDEX,
+                _strCurrentPageIndexExport );
         model.put( MARK_PAGINATOR, paginator );
         model.put( MARK_NB_ITEMS_PER_PAGE, EMPTY_STRING + _nItemsPerPageForm );
-        model.put( MARK_EXPRESSION_LIST, paginator.getPageItems(  ) );
+        model.put( MARK_EXPRESSION_LIST, paginator.getPageItems( ) );
         setPageTitleProperty( PROPERTY_MANAGE_REGULAR_EXPRESSION_TITLE );
 
         HtmlTemplate templateList = AppTemplateService.getTemplate( TEMPLATE_MANAGE_REGULAR_EXPRESSION, locale, model );
 
-        //ReferenceList refMailingList;
-        //refMailingList=AdminMailingListService.getMailingLists(adminUser);
-        return getAdminPage( templateList.getHtml(  ) );
+        // ReferenceList refMailingList;
+        // refMailingList=AdminMailingListService.getMailingLists(adminUser);
+        return getAdminPage( templateList.getHtml( ) );
     }
 
     /**
      * Gets the regular expressioncreation page
-     * @param request The HTTP request
+     * 
+     * @param request
+     *            The HTTP request
      * @return The regular expression creation page
      */
     public String getCreateRegularExpression( HttpServletRequest request )
     {
-        Locale locale = getLocale(  );
-        HashMap model = new HashMap(  );
+        Locale locale = getLocale( );
+        HashMap model = new HashMap( );
         model.put( MARK_WEBAPP_URL, AppPathService.getBaseUrl( request ) );
-        model.put( MARK_LOCALE, AdminUserService.getLocale( request ).getLanguage(  ) );
+        model.put( MARK_LOCALE, AdminUserService.getLocale( request ).getLanguage( ) );
         setPageTitleProperty( PROPERTY_CREATE_REGULAR_EXPRESSION_TITLE );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_CREATE_REGULAR_EXPRESSION, locale, model );
 
-        return getAdminPage( template.getHtml(  ) );
+        return getAdminPage( template.getHtml( ) );
     }
 
     /**
-     * Perform the regular expression  creation
-     * @param request The HTTP request
+     * Perform the regular expression creation
+     * 
+     * @param request
+     *            The HTTP request
      * @return The URL to go after performing the action
      */
     public String doCreateRegularExpression( HttpServletRequest request )
     {
-        RegularExpression regularExpression = new RegularExpression(  );
+        RegularExpression regularExpression = new RegularExpression( );
         String strError = getRegularExpressionData( request, regularExpression );
 
         if ( strError != null )
@@ -185,23 +187,25 @@ public class RegularExpressionJspBean extends PluginAdminPageJspBean
             return strError;
         }
 
-        RegularExpressionHome.create( regularExpression, getPlugin(  ) );
+        RegularExpressionHome.create( regularExpression, getPlugin( ) );
 
         return getJspManageRegularExpression( request );
     }
 
     /**
      * Gets the regular expression modification page
-     * @param request The HTTP request
+     * 
+     * @param request
+     *            The HTTP request
      * @return The regular expression creation page
      */
     public String getModifyRegularExpression( HttpServletRequest request )
     {
-        Plugin plugin = getPlugin(  );
-        Locale locale = getLocale(  );
+        Plugin plugin = getPlugin( );
+        Locale locale = getLocale( );
         RegularExpression regularExpression;
         String strIdExpression = request.getParameter( PARAMETER_ID_EXPRESSION );
-        HashMap model = new HashMap(  );
+        HashMap model = new HashMap( );
 
         int nIdExpression = -1;
 
@@ -211,7 +215,7 @@ public class RegularExpressionJspBean extends PluginAdminPageJspBean
             {
                 nIdExpression = Integer.parseInt( strIdExpression );
             }
-            catch ( NumberFormatException ne )
+            catch( NumberFormatException ne )
             {
                 AppLogService.error( ne );
 
@@ -225,23 +229,25 @@ public class RegularExpressionJspBean extends PluginAdminPageJspBean
 
         regularExpression = RegularExpressionHome.findByPrimaryKey( nIdExpression, plugin );
         model.put( MARK_WEBAPP_URL, AppPathService.getBaseUrl( request ) );
-        model.put( MARK_LOCALE, AdminUserService.getLocale( request ).getLanguage(  ) );
+        model.put( MARK_LOCALE, AdminUserService.getLocale( request ).getLanguage( ) );
         model.put( MARK_EXPPRESSION, regularExpression );
         setPageTitleProperty( PROPERTY_MODIFY_REGULAR_EXPRESSION_TITLE );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_MODIFY_REGULAR_EXPRESSION, locale, model );
 
-        return getAdminPage( template.getHtml(  ) );
+        return getAdminPage( template.getHtml( ) );
     }
 
     /**
      * Perform the regular expression modification
-     * @param request The HTTP request
+     * 
+     * @param request
+     *            The HTTP request
      * @return The URL to go after performing the action
      */
     public String doModifyRegularExpression( HttpServletRequest request )
     {
-        Plugin plugin = getPlugin(  );
+        Plugin plugin = getPlugin( );
         RegularExpression regularExpression;
         String strIdExpression = request.getParameter( PARAMETER_ID_EXPRESSION );
         int nIdExpression = -1;
@@ -252,7 +258,7 @@ public class RegularExpressionJspBean extends PluginAdminPageJspBean
             {
                 nIdExpression = Integer.parseInt( strIdExpression );
             }
-            catch ( NumberFormatException ne )
+            catch( NumberFormatException ne )
             {
                 AppLogService.error( ne );
 
@@ -264,7 +270,7 @@ public class RegularExpressionJspBean extends PluginAdminPageJspBean
             return getJspManageRegularExpression( request );
         }
 
-        regularExpression = new RegularExpression(  );
+        regularExpression = new RegularExpression( );
         regularExpression.setIdExpression( nIdExpression );
 
         String strError = getRegularExpressionData( request, regularExpression );
@@ -281,7 +287,9 @@ public class RegularExpressionJspBean extends PluginAdminPageJspBean
 
     /**
      * Gets the confirmation page of delete regular expression
-     * @param request The HTTP request
+     * 
+     * @param request
+     *            The HTTP request
      * @return the confirmation page of delete regular expression
      */
     public String getConfirmRemoveRegularExpression( HttpServletRequest request )
@@ -296,19 +304,20 @@ public class RegularExpressionJspBean extends PluginAdminPageJspBean
         UrlItem url = new UrlItem( JSP_DO_REMOVE_REGULAR_EXPRESSION );
         url.addParameter( PARAMETER_ID_EXPRESSION, strIdExpression );
 
-        return AdminMessageService.getMessageUrl( request, MESSAGE_CONFIRM_REMOVE_EXPRESSION, url.getUrl(  ),
-            AdminMessage.TYPE_CONFIRMATION );
+        return AdminMessageService.getMessageUrl( request, MESSAGE_CONFIRM_REMOVE_EXPRESSION, url.getUrl( ), AdminMessage.TYPE_CONFIRMATION );
     }
 
     /**
      * Perform the regular expression supression
-     * @param request The HTTP request
+     * 
+     * @param request
+     *            The HTTP request
      * @return The URL to go after performing the action
      */
     public String doRemoveRegularExpression( HttpServletRequest request )
     {
         String strIdExpression = request.getParameter( PARAMETER_ID_EXPRESSION );
-        ArrayList<String> listErrors = new ArrayList<String>(  );
+        ArrayList<String> listErrors = new ArrayList<String>( );
 
         int nIdExpression = -1;
 
@@ -318,56 +327,50 @@ public class RegularExpressionJspBean extends PluginAdminPageJspBean
             {
                 nIdExpression = Integer.parseInt( strIdExpression );
             }
-            catch ( NumberFormatException ne )
+            catch( NumberFormatException ne )
             {
                 AppLogService.error( ne );
             }
         }
 
-        if ( !RegularExpressionRemovalListenerService.getService(  )
-                                                         .checkForRemoval( strIdExpression, listErrors, getLocale(  ) ) )
+        if ( !RegularExpressionRemovalListenerService.getService( ).checkForRemoval( strIdExpression, listErrors, getLocale( ) ) )
         {
-            String strCause = AdminMessageService.getFormattedList( listErrors, getLocale(  ) );
-            Object[] args = { strCause };
+            String strCause = AdminMessageService.getFormattedList( listErrors, getLocale( ) );
+            Object [ ] args = {
+                    strCause
+            };
 
-            return AdminMessageService.getMessageUrl( request, MESSAGE_CAN_NOT_REMOVE_REGULAR_EXPRESSION, args,
-                AdminMessage.TYPE_STOP );
+            return AdminMessageService.getMessageUrl( request, MESSAGE_CAN_NOT_REMOVE_REGULAR_EXPRESSION, args, AdminMessage.TYPE_STOP );
         }
 
         if ( nIdExpression != -1 )
         {
-            RegularExpressionHome.remove( nIdExpression, getPlugin(  ) );
+            RegularExpressionHome.remove( nIdExpression, getPlugin( ) );
         }
 
         return getJspManageRegularExpression( request );
     }
 
     /**
-     * Get the request data and if there is no error insert the data in the regularExpression object specified in parameter.
-     * return null if there is no error or else return the error page url
-     * @param request the request
-     * @param regularExpression  the regularExpression Object
+     * Get the request data and if there is no error insert the data in the regularExpression object specified in parameter. return null if there is no error or
+     * else return the error page url
+     * 
+     * @param request
+     *            the request
+     * @param regularExpression
+     *            the regularExpression Object
      * @return null if there is no error or else return the error page url
      */
     private String getRegularExpressionData( HttpServletRequest request, RegularExpression regularExpression )
     {
         IRegularExpressionService service = (IRegularExpressionService) SpringContextService.getPluginBean( RegularExpressionPlugin.PLUGIN_NAME,
                 "regularExpressionService" );
-        String strTitle = ( request.getParameter( PARAMETER_TITLE ) == null ) ? null
-                                                                              : request.getParameter( PARAMETER_TITLE )
-                                                                                       .trim(  );
-        String strValue = ( request.getParameter( PARAMETER_VALUE ) == null ) ? null
-                                                                              : request.getParameter( PARAMETER_VALUE )
-                                                                                       .trim(  );
-        String strValidExemple = ( request.getParameter( PARAMETER_VALID_EXEMPLE ) == null ) ? null
-                                                                                             : request.getParameter( PARAMETER_VALID_EXEMPLE )
-                                                                                                      .trim(  );
+        String strTitle = ( request.getParameter( PARAMETER_TITLE ) == null ) ? null : request.getParameter( PARAMETER_TITLE ).trim( );
+        String strValue = ( request.getParameter( PARAMETER_VALUE ) == null ) ? null : request.getParameter( PARAMETER_VALUE ).trim( );
+        String strValidExemple = ( request.getParameter( PARAMETER_VALID_EXEMPLE ) == null ) ? null : request.getParameter( PARAMETER_VALID_EXEMPLE ).trim( );
         String strInformationMessage = ( request.getParameter( PARAMETER_INFORMATION_MESSAGE ) == null ) ? null
-                                                                                                         : request.getParameter( PARAMETER_INFORMATION_MESSAGE )
-                                                                                                                  .trim(  );
-        String strErrorMessage = ( request.getParameter( PARAMETER_ERROR_MESSAGE ) == null ) ? null
-                                                                                             : request.getParameter( PARAMETER_ERROR_MESSAGE )
-                                                                                                      .trim(  );
+                : request.getParameter( PARAMETER_INFORMATION_MESSAGE ).trim( );
+        String strErrorMessage = ( request.getParameter( PARAMETER_ERROR_MESSAGE ) == null ) ? null : request.getParameter( PARAMETER_ERROR_MESSAGE ).trim( );
 
         String strFieldError = EMPTY_STRING;
 
@@ -376,38 +379,42 @@ public class RegularExpressionJspBean extends PluginAdminPageJspBean
             strFieldError = FIELD_TITLE;
         }
 
-        else if ( ( strValue == null ) || strValue.equals( EMPTY_STRING ) )
-        {
-            strFieldError = FIELD_VALUE;
-        }
+        else
+            if ( ( strValue == null ) || strValue.equals( EMPTY_STRING ) )
+            {
+                strFieldError = FIELD_VALUE;
+            }
 
-        else if ( ( strValidExemple == null ) || strValidExemple.equals( "" ) )
-        {
-            strFieldError = FIELD_VALID_EXEMPLE;
-        }
-        else if ( ( strInformationMessage == null ) || strInformationMessage.equals( "" ) )
-        {
-            strFieldError = FIELD_INFORMATION_MESSAGE;
-        }
-        else if ( ( strErrorMessage == null ) || strErrorMessage.equals( "" ) )
-        {
-            strFieldError = FIELD_ERROR_MESSAGE;
-        }
+            else
+                if ( ( strValidExemple == null ) || strValidExemple.equals( "" ) )
+                {
+                    strFieldError = FIELD_VALID_EXEMPLE;
+                }
+                else
+                    if ( ( strInformationMessage == null ) || strInformationMessage.equals( "" ) )
+                    {
+                        strFieldError = FIELD_INFORMATION_MESSAGE;
+                    }
+                    else
+                        if ( ( strErrorMessage == null ) || strErrorMessage.equals( "" ) )
+                        {
+                            strFieldError = FIELD_ERROR_MESSAGE;
+                        }
 
-        //Mandatory fields
+        // Mandatory fields
         if ( !strFieldError.equals( EMPTY_STRING ) )
         {
-            Object[] tabRequiredFields = { I18nService.getLocalizedString( strFieldError, getLocale(  ) ) };
+            Object [ ] tabRequiredFields = {
+                    I18nService.getLocalizedString( strFieldError, getLocale( ) )
+            };
 
-            return AdminMessageService.getMessageUrl( request, MESSAGE_MANDATORY_FIELD, tabRequiredFields,
-                AdminMessage.TYPE_STOP );
+            return AdminMessageService.getMessageUrl( request, MESSAGE_MANDATORY_FIELD, tabRequiredFields, AdminMessage.TYPE_STOP );
         }
 
-        //	teste if the regular expression is valid
+        // teste if the regular expression is valid
         if ( !service.isPatternValide( strValue ) )
         {
-            return AdminMessageService.getMessageUrl( request, MESSAGE_REGULAR_EXPRESSION_FORMAT_NOT_VALIDE,
-                AdminMessage.TYPE_STOP );
+            return AdminMessageService.getMessageUrl( request, MESSAGE_REGULAR_EXPRESSION_FORMAT_NOT_VALIDE, AdminMessage.TYPE_STOP );
         }
 
         regularExpression.setTitle( strTitle );
@@ -418,8 +425,7 @@ public class RegularExpressionJspBean extends PluginAdminPageJspBean
 
         if ( !service.isMatches( strValidExemple, strValue ) )
         {
-            return AdminMessageService.getMessageUrl( request, MESSAGE_REGULAR_EXPRESSION_EXEMPLE_NOT_VALIDE,
-                AdminMessage.TYPE_STOP );
+            return AdminMessageService.getMessageUrl( request, MESSAGE_REGULAR_EXPRESSION_EXEMPLE_NOT_VALIDE, AdminMessage.TYPE_STOP );
         }
 
         return null;
@@ -427,7 +433,9 @@ public class RegularExpressionJspBean extends PluginAdminPageJspBean
 
     /**
      * return the url of manage regular expression
-     * @param request the request
+     * 
+     * @param request
+     *            the request
      * @return the url of manage regular expression
      */
     private String getJspManageRegularExpression( HttpServletRequest request )
