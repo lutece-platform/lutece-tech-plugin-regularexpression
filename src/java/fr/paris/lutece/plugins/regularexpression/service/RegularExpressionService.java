@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2017, Mairie de Paris
+ * Copyright (c) 2002-2020, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -44,7 +44,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
-
 /**
  *
  * Regular expression service
@@ -54,8 +53,10 @@ public class RegularExpressionService implements IRegularExpressionService
 {
     /**
      * return false if the pattern is invalid
-     * @param strPattern the pattern to test
-     * @return  false if the pattern is invalid
+     * 
+     * @param strPattern
+     *            the pattern to test
+     * @return false if the pattern is invalid
      */
     public boolean isPatternValide( String strPattern )
     {
@@ -63,7 +64,7 @@ public class RegularExpressionService implements IRegularExpressionService
         {
             Pattern.compile( strPattern );
         }
-        catch ( PatternSyntaxException exception )
+        catch( PatternSyntaxException exception )
         {
             return false;
         }
@@ -73,16 +74,18 @@ public class RegularExpressionService implements IRegularExpressionService
 
     /**
      * return false if the expression's syntax is invalid
-     * @param regularExpression the regular expression object to test
-     * @return  false if the expression's syntax is invalid
+     * 
+     * @param regularExpression
+     *            the regular expression object to test
+     * @return false if the expression's syntax is invalid
      */
     public boolean isPatternValide( RegularExpression regularExpression )
     {
         try
         {
-            Pattern.compile( regularExpression.getValue(  ) );
+            Pattern.compile( regularExpression.getValue( ) );
         }
-        catch ( PatternSyntaxException exception )
+        catch( PatternSyntaxException exception )
         {
             return false;
         }
@@ -91,11 +94,14 @@ public class RegularExpressionService implements IRegularExpressionService
     }
 
     /**
-    * return true if the value in parameter verify the pattern
-    * @param strValueToTest the value to test
-    * @param strPattern the regular expression Pattern
-    * @return true if the value in parameter verify the pattern
-    */
+     * return true if the value in parameter verify the pattern
+     * 
+     * @param strValueToTest
+     *            the value to test
+     * @param strPattern
+     *            the regular expression Pattern
+     * @return true if the value in parameter verify the pattern
+     */
     public boolean isMatches( String strValueToTest, String strPattern )
     {
         Pattern pattern = null;
@@ -104,20 +110,23 @@ public class RegularExpressionService implements IRegularExpressionService
         {
             pattern = Pattern.compile( strPattern );
         }
-        catch ( PatternSyntaxException exception )
+        catch( PatternSyntaxException exception )
         {
             return false;
         }
 
         Matcher controler = pattern.matcher( strValueToTest );
 
-        return controler.matches(  );
+        return controler.matches( );
     }
 
     /**
      * return true if the value in parameter verify the regular expression
-     * @param strValueToTest the value to test
-     * @param regularExpression the regular expression
+     * 
+     * @param strValueToTest
+     *            the value to test
+     * @param regularExpression
+     *            the regular expression
      * @return true if the value verify the regular expression
      */
     public boolean isMatches( String strValueToTest, RegularExpression regularExpression )
@@ -126,22 +135,24 @@ public class RegularExpressionService implements IRegularExpressionService
 
         try
         {
-            pattern = Pattern.compile( regularExpression.getValue(  ) );
+            pattern = Pattern.compile( regularExpression.getValue( ) );
         }
-        catch ( PatternSyntaxException exception )
+        catch( PatternSyntaxException exception )
         {
             return false;
         }
 
         Matcher controler = pattern.matcher( strValueToTest );
 
-        return controler.matches(  );
+        return controler.matches( );
     }
 
     /**
-     * return the regular expression object  whose identifier is specified in parameter
-     * @param nKey the regular expression key
-     * @return the regular expression object  whose identifier is specified in parameter
+     * return the regular expression object whose identifier is specified in parameter
+     * 
+     * @param nKey
+     *            the regular expression key
+     * @return the regular expression object whose identifier is specified in parameter
      */
     public RegularExpression getRegularExpressionByKey( int nKey )
     {
@@ -152,9 +163,10 @@ public class RegularExpressionService implements IRegularExpressionService
 
     /**
      * return a list of regular expression
+     * 
      * @return all regular expression
      */
-    public List<RegularExpression> getAllRegularExpression(  )
+    public List<RegularExpression> getAllRegularExpression( )
     {
         Plugin plugin = PluginService.getPlugin( RegularExpressionPlugin.PLUGIN_NAME );
 

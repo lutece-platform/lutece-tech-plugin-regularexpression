@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2017, Mairie de Paris
+ * Copyright (c) 2002-2020, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -38,33 +38,38 @@ import fr.paris.lutece.portal.service.plugin.Plugin;
 
 import java.util.List;
 
-
 /**
-* IFormDAO Interface
-*/
+ * IFormDAO Interface
+ */
 public interface IRegularExpressionDAO
 {
     /**
      * Insert a new record in the table.
      *
-     * @param regularExpression instance of the RegularExpression object to insert
-     * @param plugin the plugin
+     * @param regularExpression
+     *            instance of the RegularExpression object to insert
+     * @param plugin
+     *            the plugin
      */
     void insert( RegularExpression regularExpression, Plugin plugin );
 
     /**
      * Update the regularExpression in the table
      *
-     * @param regularExpression instance of the RegularExpression  object to update
-     * @param plugin the plugin
+     * @param regularExpression
+     *            instance of the RegularExpression object to update
+     * @param plugin
+     *            the plugin
      */
     void store( RegularExpression regularExpression, Plugin plugin );
 
     /**
      * Delete a record from the table
      *
-     * @param nIdRegularExpression The identifier of the regularExpression
-     * @param plugin the plugin
+     * @param nIdRegularExpression
+     *            The identifier of the regularExpression
+     * @param plugin
+     *            the plugin
      */
     void delete( int nIdRegularExpression, Plugin plugin );
 
@@ -72,18 +77,22 @@ public interface IRegularExpressionDAO
     // Finders
 
     /**
-         * Load the data of the regular expression from the table
-         *
-         * @param nKey The identifier of the regular expression
-         * @param plugin the plugin
-         * @return the instance of the RegularExpression
-         */
+     * Load the data of the regular expression from the table
+     *
+     * @param nKey
+     *            The identifier of the regular expression
+     * @param plugin
+     *            the plugin
+     * @return the instance of the RegularExpression
+     */
     RegularExpression load( int nKey, Plugin plugin );
 
     /**
-         * Load the data of all the regularExpression and returns them in a  list
-         * @param plugin the plugin
-         * @return  the list of regular expression
-         */
+     * Load the data of all the regularExpression and returns them in a list
+     * 
+     * @param plugin
+     *            the plugin
+     * @return the list of regular expression
+     */
     List<RegularExpression> selectListRegularExpression( Plugin plugin );
 }

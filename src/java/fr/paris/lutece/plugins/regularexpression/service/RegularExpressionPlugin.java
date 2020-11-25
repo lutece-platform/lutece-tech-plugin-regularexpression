@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2017, Mairie de Paris
+ * Copyright (c) 2002-2020, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,15 +35,14 @@ package fr.paris.lutece.plugins.regularexpression.service;
 
 import fr.paris.lutece.portal.service.plugin.PluginDefaultImplementation;
 
-
 public class RegularExpressionPlugin extends PluginDefaultImplementation
 {
     public static final String PLUGIN_NAME = "regularexpression";
 
     /**
-       * Initialize the plugin  regularexpression
-       */
-    public void init(  )
+     * Initialize the plugin regularexpression
+     */
+    public void init( )
     {
     }
 }
