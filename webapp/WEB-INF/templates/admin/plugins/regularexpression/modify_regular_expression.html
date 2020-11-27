@@ -5,7 +5,7 @@
 			<@boxHeader title='#i18n{regularexpression.modify_regular_expression.title}' />
 			<@boxBody>
 				<@tform method='post' action='jsp/admin/plugins/regularexpression/DoModifyRegularExpression.jsp'>
-					<input type='hidden' name='id_expression' value='${expression.idExpression}' />
+					<@input type='hidden' name='id_expression' value='${expression.idExpression}' />
 					<@formGroup labelFor='title' labelKey='#i18n{regularexpression.modify_regular_expression.label_title}' helpKey='' mandatory=true>						<@input type='text' id='title' name='title' maxlength=20 value='${expression.title}' />					</@formGroup>
 					<@formGroup labelFor='value' labelKey='#i18n{regularexpression.modify_regular_expression.label_value}' helpKey='' mandatory=true>						<@input type='text' id='value' name='value' value='${expression.value}' />					</@formGroup>
 					<@formGroup labelFor='valid_exemple' labelKey='#i18n{regularexpression.modify_regular_expression.label_valid_exemple}' helpKey='#i18n{regularexpression.modify_regular_expression.label_valid_exemple_comment}' mandatory=true>						<@input type='text' name='valid_exemple' value='${expression.validExemple}' />					</@formGroup>
@@ -13,7 +13,7 @@
 					<@formGroup labelFor='error_message' labelKey='#i18n{regularexpression.modify_regular_expression.label_error_message}' helpKey='#i18n{regularexpression.modify_regular_expression.label_error_message_comment}' mandatory=true>						<@input type='textarea' richtext=true name='error_message' id='error_message' cols=80 rows=2>${expression.errorMessage}</@input>					</@formGroup>
 					<@formGroup>
 						<@button type='submit' title='#i18n{regularexpression.modify_regular_expression.button_save}' buttonIcon='save' />
-						<@aButton href='jsp/admin/plugins/regularexpression/ManageRegularExpression.jsp' title='#i18n{regularexpression.modify_regular_expression.button_cancel}' buttonIcon='times' color='btn-default' />
+						<@aButton href='jsp/admin/plugins/regularexpression/ManageRegularExpression.jsp' title='#i18n{regularexpression.modify_regular_expression.button_cancel}' buttonIcon='times' color='default' />
 					</@formGroup>
 				</@tform> 
 			</@boxBody>

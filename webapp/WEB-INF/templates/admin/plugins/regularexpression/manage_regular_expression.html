@@ -3,7 +3,7 @@
 		<@box>
 			<@boxHeader title='#i18n{regularexpression.manage_regular_expression.title}'>
 				<@tform class='form-inline' method='post' action='jsp/admin/plugins/regularexpression/CreateRegularExpression.jsp'>
-					<@button type='submit' title='#i18n{regularexpression.manage_regular_expression.button_create}' showTitleXs=false showTitleSm=false buttonIcon='plus' size='sm' />
+					<@button type='submit' title='#i18n{regularexpression.manage_regular_expression.button_create}' hideTitle=['xs','sm'] buttonIcon='plus' size='sm' />
 				</@tform>
 			</@boxHeader>
 			<@boxBody>
@@ -23,7 +23,7 @@
 							<td>${expression.value}</td>
 							<td>
 								<@aButton href='jsp/admin/plugins/regularexpression/ModifyRegularExpression.jsp?id_expression=${expression.idExpression}' buttonIcon='pencil' size='sm' />
-								<@aButton href='jsp/admin/plugins/regularexpression/ConfirmRemoveRegularExpression.jsp?id_expression=${expression.idExpression}' title='#i18n{regularexpression.manage_regular_expression.alt_delete}' showTitle=false buttonIcon='trash' color='btn-danger' size='sm' />
+								<@aButton href='jsp/admin/plugins/regularexpression/ConfirmRemoveRegularExpression.jsp?id_expression=${expression.idExpression}' title='#i18n{regularexpression.manage_regular_expression.alt_delete}' hideTitle=['all'] buttonIcon='trash' color='danger' size='sm' />
 							</td>
 						</tr>
 					 </#list>

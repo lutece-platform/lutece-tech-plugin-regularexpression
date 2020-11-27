@@ -9,13 +9,13 @@
 					<@formGroup labelFor='value' labelKey='#i18n{regularexpression.create_regular_expression.label_value}' helpKey='' mandatory=true>						<@input type='text' id='value' name='value' value='' />					</@formGroup>
 					<@formGroup labelFor='valid_exemple' labelKey='#i18n{regularexpression.create_regular_expression.label_valid_exemple}' helpKey='#i18n{regularexpression.create_regular_expression.label_valid_exemple_comment}' mandatory=true>						<@input type='text' name='valid_exemple' value='' />					</@formGroup>
 					<@formGroup labelFor='information_message' labelKey='#i18n{regularexpression.create_regular_expression.label_information_message}' helpKey='#i18n{regularexpression.create_regular_expression.label_information_message_comment}' mandatory=true>						<@input type='textarea' richtext=true name='information_message' id='information_message' rows=2 />					</@formGroup>
-					<@formGroup labelFor='error_message' labelKey='#i18n{regularexpression.create_regular_expression.label_error_message}' helpKey='#i18n{regularexpression.create_regular_expression.label_error_message_comment} ' mandatory=true>						<@input type='textarea' richtext=true name='error_message' id='error_message' rows=2 />					</@formGroup>
+					<@formGroup labelFor='error_message' labelKey='#i18n{regularexpression.create_regular_expression.label_error_message}' helpKey='#i18n{regularexpression.create_regular_expression.label_error_message_comment}' mandatory=true>						<@input type='textarea' richtext=true name='error_message' id='error_message' rows=2 />					</@formGroup>
 					<@formGroup>
 						<@button type='submit' title='#i18n{regularexpression.create_regular_expression.button_save}' buttonIcon='check' />
-						<@aButton href='jsp/admin/plugins/regularexpression/ManageRegularExpression.jsp' title='#i18n{regularexpression.create_regular_expression.button_cancel}' buttonIcon='times' color='btn-default' />
+						<@aButton href='jsp/admin/plugins/regularexpression/ManageRegularExpression.jsp' title='#i18n{regularexpression.create_regular_expression.button_cancel}' buttonIcon='times' color='default' />
 					</@formGroup>
 				</@tform> 
-			</@boxBody>>
+			</@boxBody>
 		</@box>
 	</@columns>
 </@row>
