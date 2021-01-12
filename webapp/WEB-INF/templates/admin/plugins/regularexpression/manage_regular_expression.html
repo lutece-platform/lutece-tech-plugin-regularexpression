@@ -10,22 +10,22 @@
 				<@paginationAdmin paginator=paginator combo=1 showcount=0 />
 				<@table>
 					<thead>
-						<tr>
-						  <th>#i18n{regularexpression.manage_regular_expression.row_title}</th>
-						  <th>#i18n{regularexpression.manage_regular_expression.row_description}</th>
-						  <th>#i18n{regularexpression.manage_regular_expression.row_actions}</th>
-						</tr>
+						<@tr>
+						  <@th>#i18n{regularexpression.manage_regular_expression.row_title}</@th>
+						  <@th>#i18n{regularexpression.manage_regular_expression.row_description}</@th>
+						  <@th>#i18n{regularexpression.manage_regular_expression.row_actions}</@th>
+						</@tr>
 					</thead>
 					<tbody>
 					 <#list expression_list as expression>
-						<tr>
-							<td>${expression.title}</td>
-							<td>${expression.value}</td>
-							<td>
+						<@tr>
+							<@td>${expression.title}</@td>
+							<@td>${expression.value}</@td>
+							<@td>
 								<@aButton href='jsp/admin/plugins/regularexpression/ModifyRegularExpression.jsp?id_expression=${expression.idExpression}' buttonIcon='pencil' size='sm' />
 								<@aButton href='jsp/admin/plugins/regularexpression/ConfirmRemoveRegularExpression.jsp?id_expression=${expression.idExpression}' title='#i18n{regularexpression.manage_regular_expression.alt_delete}' hideTitle=['all'] buttonIcon='trash' color='danger' size='sm' />
-							</td>
-						</tr>
+							</@td>
+						</@tr>
 					 </#list>
 					</tbody>
 				</@table> 
