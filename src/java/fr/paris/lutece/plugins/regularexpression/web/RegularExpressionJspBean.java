@@ -139,10 +139,11 @@ public class RegularExpressionJspBean extends PluginAdminPageJspBean
         List<RegularExpression> listRegularExpression = RegularExpressionHome.getList( plugin );
 
         _strCurrentPageIndexExport = AbstractPaginator.getPageIndex( request, AbstractPaginator.PARAMETER_PAGE_INDEX, _strCurrentPageIndexExport );
-        _nItemsPerPageForm = AbstractPaginator.getItemsPerPage( request, AbstractPaginator.PARAMETER_ITEMS_PER_PAGE, _nItemsPerPageForm, _nDefaultItemsPerPage );
+        _nItemsPerPageForm = AbstractPaginator.getItemsPerPage( request, AbstractPaginator.PARAMETER_ITEMS_PER_PAGE, _nItemsPerPageForm,
+                _nDefaultItemsPerPage );
 
-        Paginator<RegularExpression> paginator = new Paginator<>( listRegularExpression, _nItemsPerPageForm, getJspManageRegularExpression( request ), PARAMETER_PAGE_INDEX,
-                _strCurrentPageIndexExport );
+        Paginator<RegularExpression> paginator = new Paginator<>( listRegularExpression, _nItemsPerPageForm, getJspManageRegularExpression( request ),
+                PARAMETER_PAGE_INDEX, _strCurrentPageIndexExport );
         model.put( MARK_PAGINATOR, paginator );
         model.put( MARK_NB_ITEMS_PER_PAGE, EMPTY_STRING + _nItemsPerPageForm );
         model.put( MARK_EXPRESSION_LIST, paginator.getPageItems( ) );

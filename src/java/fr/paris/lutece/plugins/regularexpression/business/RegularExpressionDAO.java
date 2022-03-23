@@ -67,7 +67,7 @@ public final class RegularExpressionDAO implements IRegularExpressionDAO
     public int newPrimaryKey( Plugin plugin )
     {
         int nKey = 1;
-        try (  DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK, plugin ) )
         {
             daoUtil.executeQuery( );
             if ( daoUtil.next( ) )
@@ -88,7 +88,7 @@ public final class RegularExpressionDAO implements IRegularExpressionDAO
      */
     public void insert( RegularExpression regularExpression, Plugin plugin )
     {
-        try (  DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin ) )
         {
             regularExpression.setIdExpression( newPrimaryKey( plugin ) );
             daoUtil.setInt( 1, regularExpression.getIdExpression( ) );
@@ -113,11 +113,11 @@ public final class RegularExpressionDAO implements IRegularExpressionDAO
     public RegularExpression load( int nId, Plugin plugin )
     {
         RegularExpression regularExpression = null;
-        try (  DAOUtil daoUtil = new DAOUtil( SQL_QUERY_FIND_BY_PRIMARY_KEY, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_FIND_BY_PRIMARY_KEY, plugin ) )
         {
             daoUtil.setInt( 1, nId );
             daoUtil.executeQuery( );
-    
+
             if ( daoUtil.next( ) )
             {
                 regularExpression = new RegularExpression( );
@@ -142,7 +142,7 @@ public final class RegularExpressionDAO implements IRegularExpressionDAO
      */
     public void delete( int nIdExpression, Plugin plugin )
     {
-        try (  DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin ) )
         {
             daoUtil.setInt( 1, nIdExpression );
             daoUtil.executeUpdate( );
@@ -159,7 +159,7 @@ public final class RegularExpressionDAO implements IRegularExpressionDAO
      */
     public void store( RegularExpression regularExpression, Plugin plugin )
     {
-        try (  DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin ) )
         {
             daoUtil.setInt( 1, regularExpression.getIdExpression( ) );
             daoUtil.setString( 2, regularExpression.getTitle( ) );
@@ -182,7 +182,7 @@ public final class RegularExpressionDAO implements IRegularExpressionDAO
     public List<RegularExpression> selectListRegularExpression( Plugin plugin )
     {
         List<RegularExpression> regularExpressionList = new ArrayList<>( );
-        try (  DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin ) )
         {
             daoUtil.executeQuery( );
 
