@@ -1,35 +1,39 @@
-<@row> 
-	<@columns>
-		<@box>
-			<@boxHeader title='#i18n{regularexpression.manage_regular_expression.title}'>
-				<@tform class='form-inline' method='post' action='jsp/admin/plugins/regularexpression/CreateRegularExpression.jsp'>
-					<@button type='submit' title='#i18n{regularexpression.manage_regular_expression.button_create}' hideTitle=['xs','sm'] buttonIcon='plus' size='sm' />
-				</@tform>
-			</@boxHeader>
-			<@boxBody>
-				<@paginationAdmin paginator=paginator combo=1 showcount=0 />
-				<@table>
-					<thead>
-						<@tr>
-						  <@th>#i18n{regularexpression.manage_regular_expression.row_title}</@th>
-						  <@th>#i18n{regularexpression.manage_regular_expression.row_description}</@th>
-						  <@th>#i18n{regularexpression.manage_regular_expression.row_actions}</@th>
-						</@tr>
-					</thead>
-					<tbody>
-					 <#list expression_list as expression>
-						<@tr>
-							<@td>${expression.title}</@td>
-							<@td>${expression.value}</@td>
-							<@td>
-								<@aButton href='jsp/admin/plugins/regularexpression/ModifyRegularExpression.jsp?id_expression=${expression.idExpression}' buttonIcon='pencil' size='sm' />
-								<@aButton href='jsp/admin/plugins/regularexpression/ConfirmRemoveRegularExpression.jsp?id_expression=${expression.idExpression}' title='#i18n{regularexpression.manage_regular_expression.alt_delete}' hideTitle=['all'] buttonIcon='trash' color='danger' size='sm' />
-							</@td>
-						</@tr>
-					 </#list>
-					</tbody>
-				</@table> 
-			</@boxBody>
-		</@box>
-	</@columns>
-</@row>
+<@pageContainer>
+    <@pageColumn>
+		<@pageHeader title='#i18n{regularexpression.manage_regular_expression.title}'>
+			<@tform class='form-inline' method='post' action='jsp/admin/plugins/regularexpression/CreateRegularExpression.jsp'>
+				<@button type='submit' title='#i18n{regularexpression.manage_regular_expression.button_create}' hideTitle=['xs','sm'] buttonIcon='plus' size='sm' />
+				
+				<#-- btnTitle='#i18n{regularexpression.manage_regular_expression.button_create}' -->
+				<#-- <@offcanvas targetUrl='jsp/admin/plugins/regularexpression/CreateRegularExpression.jsp' targetElement='#create_regex_page' redirectForm=false id='regex-create' title='#i18n{regularexpression.create_regular_expression.title}' btnTitle='' btnIcon='plus' btnSize='sm' position='end' /> -->
+					
+			</@tform>
+		</@pageHeader>
+		<@paginationAdmin paginator=paginator combo=1 showcount=0 />
+		<@table>
+			<thead>
+				<@tr>
+				  <@th>#i18n{regularexpression.manage_regular_expression.row_title}</@th>
+				  <@th>#i18n{regularexpression.manage_regular_expression.row_description}</@th>
+				  <@th>#i18n{regularexpression.manage_regular_expression.row_actions}</@th>
+				</@tr>
+			</thead>
+			<tbody>
+			 <#list expression_list as expression>
+				<@tr>
+					<@td>${expression.title}</@td>
+					<@td>${expression.value}</@td>
+					<@td>
+						<@aButton href='jsp/admin/plugins/regularexpression/ModifyRegularExpression.jsp?id_expression=${expression.idExpression}' buttonIcon='pencil' size='sm' />
+						
+						<#-- btnTitle='#i18n{regularexpression.manage_regular_expression.button_modify}' -->
+						<#-- <@offcanvas targetUrl='jsp/admin/plugins/regularexpression/ModifyRegularExpression.jsp?id_expression=${expression.idExpression}' targetElement='#edit_regex_page' redirectForm=false id='regex${expression.idExpression}-edit' title='#i18n{regularexpression.modify_regular_expression.title}' btnTitle='' btnIcon='pencil' btnSize='sm' position='end' />-->
+												
+						<@aButton href='jsp/admin/plugins/regularexpression/ConfirmRemoveRegularExpression.jsp?id_expression=${expression.idExpression}' title='#i18n{regularexpression.manage_regular_expression.alt_delete}' hideTitle=['all'] buttonIcon='trash' color='danger' size='sm' />
+					</@td>
+				</@tr>
+			 </#list>
+			</tbody>
+		</@table>
+	</@pageColumn>
+</@pageContainer>

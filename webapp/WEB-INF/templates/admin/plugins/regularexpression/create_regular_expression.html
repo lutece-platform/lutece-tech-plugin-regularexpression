@@ -1,22 +1,18 @@
  <#include "/admin/util/editor/editor.html" />
-<@row> 
-	<@columns>
-		<@box>
-			<@boxHeader title='#i18n{regularexpression.create_regular_expression.title}' />
-			<@boxBody>
-				<@tform method='post' action='jsp/admin/plugins/regularexpression/DoCreateRegularExpression.jsp'>
-					<@formGroup labelFor='title' labelKey='#i18n{regularexpression.create_regular_expression.label_title}' helpKey='' mandatory=true>						<@input type='text' id='title' name='title' maxlength=20 />					</@formGroup>
-					<@formGroup labelFor='value' labelKey='#i18n{regularexpression.create_regular_expression.label_value}' helpKey='' mandatory=true>						<@input type='text' id='value' name='value' value='' />					</@formGroup>
-					<@formGroup labelFor='valid_exemple' labelKey='#i18n{regularexpression.create_regular_expression.label_valid_exemple}' helpKey='#i18n{regularexpression.create_regular_expression.label_valid_exemple_comment}' mandatory=true>						<@input type='text' name='valid_exemple' value='' />					</@formGroup>
-					<@formGroup labelFor='information_message' labelKey='#i18n{regularexpression.create_regular_expression.label_information_message}' helpKey='#i18n{regularexpression.create_regular_expression.label_information_message_comment}' mandatory=true>						<@input type='textarea' richtext=true name='information_message' id='information_message' rows=2 />					</@formGroup>
-					<@formGroup labelFor='error_message' labelKey='#i18n{regularexpression.create_regular_expression.label_error_message}' helpKey='#i18n{regularexpression.create_regular_expression.label_error_message_comment}' mandatory=true>						<@input type='textarea' richtext=true name='error_message' id='error_message' rows=2 />					</@formGroup>
-					<@formGroup>
-						<@button type='submit' title='#i18n{regularexpression.create_regular_expression.button_save}' buttonIcon='check' />
-						<@aButton href='jsp/admin/plugins/regularexpression/ManageRegularExpression.jsp' title='#i18n{regularexpression.create_regular_expression.button_cancel}' buttonIcon='times' color='default' />
-					</@formGroup>
-				</@tform> 
-			</@boxBody>
-		</@box>
-	</@columns>
-</@row>
+<@pageContainer>
+    <@pageColumn>
+		<@pageHeader title='#i18n{regularexpression.create_regular_expression.title}' />
+		<@tform method='post' action='jsp/admin/plugins/regularexpression/DoCreateRegularExpression.jsp' id='create_regex_page' boxed=true>
+			<@formGroup labelFor='title' labelKey='#i18n{regularexpression.create_regular_expression.label_title}' helpKey='' mandatory=true>				<@input type='text' id='title' name='title' maxlength=20 />			</@formGroup>
+			<@formGroup labelFor='value' labelKey='#i18n{regularexpression.create_regular_expression.label_value}' helpKey='' mandatory=true>				<@input type='text' id='value' name='value' value='' />			</@formGroup>
+			<@formGroup labelFor='valid_exemple' labelKey='#i18n{regularexpression.create_regular_expression.label_valid_exemple}' helpKey='#i18n{regularexpression.create_regular_expression.label_valid_exemple_comment}' mandatory=true>				<@input type='text' name='valid_exemple' value='' />			</@formGroup>
+			<@formGroup labelFor='information_message' labelKey='#i18n{regularexpression.create_regular_expression.label_information_message}' helpKey='#i18n{regularexpression.create_regular_expression.label_information_message_comment}' mandatory=true>				<@input type='textarea' richtext=true name='information_message' id='information_message' rows=2 />			</@formGroup>
+			<@formGroup labelFor='error_message' labelKey='#i18n{regularexpression.create_regular_expression.label_error_message}' helpKey='#i18n{regularexpression.create_regular_expression.label_error_message_comment}' mandatory=true>				<@input type='textarea' richtext=true name='error_message' id='error_message' rows=2 />			</@formGroup>
+			<@formGroup>
+				<@button type='submit' title='#i18n{regularexpression.create_regular_expression.button_save}' buttonIcon='device-floppy' />
+				<@aButton href='jsp/admin/plugins/regularexpression/ManageRegularExpression.jsp' title='#i18n{regularexpression.create_regular_expression.button_cancel}' buttonIcon='x' color='default' />
+			</@formGroup>
+		</@tform> 
+	</@pageColumn>
+</@pageContainer>
 <@initEditor />
