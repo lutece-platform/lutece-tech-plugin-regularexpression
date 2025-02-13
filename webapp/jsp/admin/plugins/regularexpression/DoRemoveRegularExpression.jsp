@@ -1,6 +1,7 @@
 <%@ page errorPage="../../ErrorPage.jsp" %>
-<jsp:useBean id="regularexpressionExpression" scope="session" class="fr.paris.lutece.plugins.regularexpression.web.RegularExpressionJspBean" />
-<% 
-	regularexpressionExpression.init( request,fr.paris.lutece.plugins.regularexpression.web.RegularExpressionJspBean.RIGHT_REGULAR_EXPRESSION_MANAGEMENT );
-    response.sendRedirect(regularexpressionExpression.doRemoveRegularExpression(request) );
-%>
+
+<%@page import="fr.paris.lutece.plugins.regularexpression.web.RegularExpressionJspBean"%>
+
+${ regularExpressionJspBean.init( pageContext.request, RegularExpressionJspBean.RIGHT_REGULAR_EXPRESSION_MANAGEMENT ) }
+${ pageContext.response.sendRedirect( regularExpressionJspBean.doRemoveRegularExpression( pageContext.request ) ) }
+

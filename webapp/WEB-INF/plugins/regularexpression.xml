@@ -2,7 +2,7 @@
      <!-- Plugin Informations --> 
     <name>regularexpression</name>
     <class>fr.paris.lutece.plugins.regularexpression.service.RegularExpressionPlugin</class>
-    <version>4.0.2-SNAPSHOT</version>
+    <version>5.0.0-SNAPSHOT</version>
     <description>digglike.plugin.description</description>
     <documentation/>
     <installation/>
@@ -12,7 +12,7 @@
     <provider>regularexpression.plugin.provider</provider>
     <provider-url>http://lutece.paris.fr</provider-url>
     <icon-url>images/admin/skin/plugins/regularexpression/regularexpression.png</icon-url>
-    <copyright>Copyright 2001-2008 Mairie de Paris</copyright>
+    <copyright>Copyright 2001-2025 Mairie de Paris</copyright>
     <db-pool-required>1</db-pool-required>
     <!--  Specific plugin CSS stylesheet   --> 
     

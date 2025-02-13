@@ -35,7 +35,7 @@ package fr.paris.lutece.plugins.regularexpression.business;
 
 import fr.paris.lutece.portal.business.regularexpression.RegularExpression;
 import fr.paris.lutece.portal.service.plugin.Plugin;
-import fr.paris.lutece.portal.service.spring.SpringContextService;
+import jakarta.enterprise.inject.spi.CDI;
 
 import java.util.List;
 
@@ -45,7 +45,7 @@ import java.util.List;
 public final class RegularExpressionHome
 {
     // Static variable pointed at the DAO instance
-    private static IRegularExpressionDAO _dao = (IRegularExpressionDAO) SpringContextService.getBean( "regularExpressionDAO" );
+    private static IRegularExpressionDAO _dao = CDI.current( ).select( IRegularExpressionDAO.class ).get( );
 
     /**
      * Private constructor - this class need not be instantiated
