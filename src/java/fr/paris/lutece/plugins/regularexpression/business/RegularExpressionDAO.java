@@ -36,6 +36,7 @@ package fr.paris.lutece.plugins.regularexpression.business;
 import fr.paris.lutece.portal.business.regularexpression.RegularExpression;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.util.sql.DAOUtil;
+import jakarta.enterprise.context.ApplicationScoped;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,7 @@ import java.util.List;
 /**
  * This class provides Data Access methods for ReportingFiche objects
  */
+@ApplicationScoped
 public final class RegularExpressionDAO implements IRegularExpressionDAO
 {
     // Constants

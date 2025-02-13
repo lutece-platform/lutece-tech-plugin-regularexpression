@@ -1,6 +1,10 @@
 <%@ page errorPage="../../ErrorPage.jsp" %>
+
 <jsp:include page="../../AdminHeader.jsp" />
-<jsp:useBean id="regularexpressionExpression" scope="session" class="fr.paris.lutece.plugins.regularexpression.web.RegularExpressionJspBean" />
-<% regularexpressionExpression.init( request,fr.paris.lutece.plugins.regularexpression.web.RegularExpressionJspBean.RIGHT_REGULAR_EXPRESSION_MANAGEMENT );%>
-<%= regularexpressionExpression.getCreateRegularExpression( request ) %>
+
+<%@page import="fr.paris.lutece.plugins.regularexpression.web.RegularExpressionJspBean"%>
+
+${ regularExpressionJspBean.init( pageContext.request, RegularExpressionJspBean.RIGHT_REGULAR_EXPRESSION_MANAGEMENT ) }
+${ regularExpressionJspBean.getCreateRegularExpression( pageContext.request ) }
+
 <%@ include file="../../AdminFooter.jsp" %>

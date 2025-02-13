@@ -42,7 +42,6 @@ import fr.paris.lutece.portal.service.message.AdminMessageService;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.regularexpression.IRegularExpressionService;
 import fr.paris.lutece.portal.service.regularexpression.RegularExpressionRemovalListenerService;
-import fr.paris.lutece.portal.service.spring.SpringContextService;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.portal.service.util.AppLogService;
 import fr.paris.lutece.portal.service.util.AppPathService;
@@ -59,13 +58,18 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.enterprise.context.SessionScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
 
 /**
  * This class provides the user interface to manage regular expression( manage, create, modify, remove)
  */
+@SessionScoped
+@Named
 public class RegularExpressionJspBean extends PluginAdminPageJspBean
 {
     private static final long serialVersionUID = 4005299802051287019L;
@@ -123,6 +127,9 @@ public class RegularExpressionJspBean extends PluginAdminPageJspBean
     private int _nDefaultItemsPerPage = AppPropertiesService.getPropertyInt( PROPERTY_ITEM_PER_PAGE, 15 );
     private String _strCurrentPageIndexExport;
     private int _nItemsPerPageForm;
+
+    @Inject
+    IRegularExpressionService _regularExpressionService;
 
     /**
      * Return management regular expression ( list of regular expression )
@@ -366,7 +373,6 @@ public class RegularExpressionJspBean extends PluginAdminPageJspBean
      */
     private String getRegularExpressionData( HttpServletRequest request, RegularExpression regularExpression )
     {
-        IRegularExpressionService service = SpringContextService.getBean( "regularExpressionService" );
         String strTitle = ( request.getParameter( PARAMETER_TITLE ) == null ) ? null : request.getParameter( PARAMETER_TITLE ).trim( );
         String strValue = ( request.getParameter( PARAMETER_VALUE ) == null ) ? null : request.getParameter( PARAMETER_VALUE ).trim( );
         String strValidExemple = ( request.getParameter( PARAMETER_VALID_EXEMPLE ) == null ) ? null : request.getParameter( PARAMETER_VALID_EXEMPLE ).trim( );
@@ -414,7 +420,7 @@ public class RegularExpressionJspBean extends PluginAdminPageJspBean
         }
 
         // teste if the regular expression is valid
-        if ( !service.isPatternValide( strValue ) )
+        if ( !_regularExpressionService.isPatternValide( strValue ) )
         {
             return AdminMessageService.getMessageUrl( request, MESSAGE_REGULAR_EXPRESSION_FORMAT_NOT_VALIDE, AdminMessage.TYPE_STOP );
         }
@@ -425,7 +431,7 @@ public class RegularExpressionJspBean extends PluginAdminPageJspBean
         regularExpression.setInformationMessage( strInformationMessage );
         regularExpression.setErrorMessage( strErrorMessage );
 
-        if ( !service.isMatches( strValidExemple, strValue ) )
+        if ( !_regularExpressionService.isMatches( strValidExemple, strValue ) )
         {
             return AdminMessageService.getMessageUrl( request, MESSAGE_REGULAR_EXPRESSION_EXEMPLE_NOT_VALIDE, AdminMessage.TYPE_STOP );
         }
