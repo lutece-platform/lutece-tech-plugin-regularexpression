@@ -36,6 +36,8 @@ package fr.paris.lutece.plugins.regularexpression.web;
 import fr.paris.lutece.plugins.regularexpression.business.RegularExpressionHome;
 import fr.paris.lutece.portal.business.regularexpression.RegularExpression;
 import fr.paris.lutece.portal.service.admin.AdminUserService;
+import fr.paris.lutece.portal.service.editor.RichTextContentService;
+import fr.paris.lutece.portal.service.editor.RichTextParsingException;
 import fr.paris.lutece.portal.service.i18n.I18nService;
 import fr.paris.lutece.portal.service.message.AdminMessage;
 import fr.paris.lutece.portal.service.message.AdminMessageService;
@@ -237,8 +239,20 @@ public class RegularExpressionJspBean extends PluginAdminPageJspBean
         setPageTitleProperty( PROPERTY_MODIFY_REGULAR_EXPRESSION_TITLE );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_MODIFY_REGULAR_EXPRESSION, locale, model );
+        
+        String strTemplate = template.getHtml();
+        
+        try 
+        {
+        	strTemplate = RichTextContentService.getContent( strTemplate );
+        	return getAdminPage( strTemplate );
+		}  
+        catch ( RichTextParsingException e ) 
+        {
+            AppLogService.error( e.getMessage( ), e );
+            return getManageRegularExpression( request );
+        }
 
-        return getAdminPage( template.getHtml( ) );
     }
 
     /**
