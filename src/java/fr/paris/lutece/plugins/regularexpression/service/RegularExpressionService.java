@@ -35,10 +35,13 @@ package fr.paris.lutece.plugins.regularexpression.service;
 
 import fr.paris.lutece.plugins.regularexpression.business.RegularExpressionHome;
 import fr.paris.lutece.portal.business.regularexpression.RegularExpression;
+import fr.paris.lutece.portal.service.editor.RichTextContentService;
+import fr.paris.lutece.portal.service.editor.RichTextParsingException;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.plugin.PluginService;
 import fr.paris.lutece.portal.service.regularexpression.IRegularExpressionService;
 import jakarta.enterprise.context.ApplicationScoped;
+import fr.paris.lutece.portal.service.util.AppLogService;
 
 import java.util.List;
 import java.util.regex.Matcher;
@@ -158,10 +161,42 @@ public class RegularExpressionService implements IRegularExpressionService
      */
     public RegularExpression getRegularExpressionByKey( int nKey )
     {
-        Plugin plugin = PluginService.getPlugin( RegularExpressionPlugin.PLUGIN_NAME );
-
-        return RegularExpressionHome.findByPrimaryKey( nKey, plugin );
+        return getRegularExpressionByKey( nKey, false );
     }
+
+    /**
+     * return the regular expression object whose identifier is specified in parameter
+     * 
+     * @param nKey
+     *            the regular expression key
+     * @param bForEditor
+     *            True if the template is to be displayed in an editor
+     * @return the regular expression object whose identifier is specified in parameter
+     */
+    public RegularExpression getRegularExpressionByKey( int nKey, boolean bForEditor )
+    {
+    	
+    	Plugin plugin = PluginService.getPlugin( RegularExpressionPlugin.PLUGIN_NAME );
+    	
+    	RegularExpression regularExpression = RegularExpressionHome.findByPrimaryKey( nKey, plugin );
+    	
+    	//When attributes are generated in an textarea input with richtext option (from markdown editors or html editors), 
+        //then attributes must be transformed in html by the RichTextContentService 
+	    if ( !bForEditor )
+	    {
+	        try
+	        {
+	        	formatRichTextAttributes( regularExpression );
+	        }
+	        catch( RichTextParsingException e )
+	        {
+	            AppLogService.error( e.getMessage( ), e );
+	        }
+	    }
+	    
+	    return regularExpression;
+    }
+    
 
     /**
      * return a list of regular expression
@@ -170,8 +205,52 @@ public class RegularExpressionService implements IRegularExpressionService
      */
     public List<RegularExpression> getAllRegularExpression( )
     {
+    	return getAllRegularExpression( false );
+    }
+    
+    /**
+     * return a list of regular expression
+     * 
+     * @param bForEditor
+     *            True if the template is to be displayed in an editor
+     * @return all regular expression
+     */
+    public List<RegularExpression> getAllRegularExpression( boolean bForEditor )
+    {
         Plugin plugin = PluginService.getPlugin( RegularExpressionPlugin.PLUGIN_NAME );
+        
+        List<RegularExpression> regularExpressions = RegularExpressionHome.getList( plugin );
+        
+        //When attributes are generated in an textarea input with richtext option (from markdown editors or html editors), 
+        //then attributes must be transformed in html by the RichTextContentService 
+        if ( !bForEditor )
+        {
+            regularExpressions.forEach( regularExpression ->
+            {
+                try
+                {
+                	formatRichTextAttributes( regularExpression );
+                }
+                catch( RichTextParsingException e )
+                {
+                    AppLogService.error( e.getMessage( ), e );
+                }
+            } );
+        }
 
-        return RegularExpressionHome.getList( plugin );
+        return regularExpressions;
+    }
+    
+    /**
+     * Format in HTML richText attributes of a regularExpression
+     *
+     * @param regularExpression
+     *            The regularExpression to modify
+     * @return the regularExpression with modification
+     */
+    public static void formatRichTextAttributes( RegularExpression regularExpression ) throws RichTextParsingException 
+    {
+    	regularExpression.setErrorMessage( RichTextContentService.getContent( regularExpression.getErrorMessage( ) ) );
+        regularExpression.setInformationMessage( RichTextContentService.getContent( regularExpression.getInformationMessage( ) ) );
     }
 }
