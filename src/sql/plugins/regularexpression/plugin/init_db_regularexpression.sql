@@ -1,3 +1,6 @@
+--liquibase formatted sql
+--changeset regularexpression:init_db_regularexpression.sql
+--preconditions onFail:MARK_RAN onError:WARN
 --
 -- Dumping data in table regularexpression_regular_expression
 --
