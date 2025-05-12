@@ -1,3 +1,6 @@
+--liquibase formatted sql
+--changeset regularexpression:create_db_regularexpression.sql
+--preconditions onFail:MARK_RAN onError:WARN
 --
 -- Table structure for table regularexpression_regular_expression
 --
