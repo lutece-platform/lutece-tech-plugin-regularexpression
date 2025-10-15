@@ -41,6 +41,7 @@ import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.plugin.PluginService;
 import fr.paris.lutece.portal.service.regularexpression.IRegularExpressionService;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
 import fr.paris.lutece.portal.service.util.AppLogService;
 
 import java.util.List;
@@ -54,6 +55,7 @@ import java.util.regex.PatternSyntaxException;
  *
  */
 @ApplicationScoped
+@Named("regularExpressionService")
 public class RegularExpressionService implements IRegularExpressionService
 {
     /**
