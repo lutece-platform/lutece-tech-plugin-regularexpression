@@ -35,8 +35,11 @@ package fr.paris.lutece.plugins.regularexpression.service;
 
 import fr.paris.lutece.portal.service.plugin.PluginDefaultImplementation;
 
-public class RegularExpressionPlugin extends PluginDefaultImplementation
+import java.io.Serializable;
+
+public class RegularExpressionPlugin extends PluginDefaultImplementation implements Serializable
 {
+    private static final long serialVersionUID = 870420778816811630L;
     public static final String PLUGIN_NAME = "regularexpression";
 
     /**
