@@ -1,12 +1,12 @@
---liquibase formatted sql
---changeset regularexpression:create_db_regularexpression.sql
---preconditions onFail:MARK_RAN onError:WARN
+-- liquibase formatted sql
+-- changeset regularexpression:create_db_regularexpression.sql
+-- preconditions onFail:MARK_RAN onError:WARN
 --
 -- Table structure for table regularexpression_regular_expression
 --
 DROP TABLE IF EXISTS regularexpression_regular_expression;
 CREATE TABLE regularexpression_regular_expression (
-	id_expression int default 0 NOT NULL,
+	id_expression int AUTO_INCREMENT,
 	title varchar(255),
 	regular_expression_value long varchar,
 	valid_exemple long varchar,
