@@ -38,6 +38,7 @@ import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.util.sql.DAOUtil;
 import jakarta.enterprise.context.ApplicationScoped;
 
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,37 +49,15 @@ import java.util.List;
 public final class RegularExpressionDAO implements IRegularExpressionDAO
 {
     // Constants
-    private static final String SQL_QUERY_NEW_PK = "SELECT max( id_expression ) FROM regularexpression_regular_expression";
     private static final String SQL_QUERY_FIND_BY_PRIMARY_KEY = "SELECT id_expression,title,regular_expression_value,valid_exemple,information_message,error_message"
             + " FROM  regularexpression_regular_expression WHERE id_expression = ?";
-    private static final String SQL_QUERY_INSERT = "INSERT INTO regularexpression_regular_expression( id_expression,title,regular_expression_value,valid_exemple,information_message,error_message)"
-            + "VALUES(?,?,?,?,?,?)";
+    private static final String SQL_QUERY_INSERT = "INSERT INTO regularexpression_regular_expression(title,regular_expression_value,valid_exemple,information_message,error_message)"
+            + "VALUES(?,?,?,?,?)";
     private static final String SQL_QUERY_DELETE = "DELETE FROM regularexpression_regular_expression WHERE id_expression = ? ";
     private static final String SQL_QUERY_UPDATE = "UPDATE regularexpression_regular_expression SET "
-            + "id_expression=?,title=?,regular_expression_value=?,valid_exemple=?,information_message=?,error_message=? WHERE id_expression = ? ";
+            + "title=?,regular_expression_value=?,valid_exemple=?,information_message=?,error_message=? WHERE id_expression = ? ";
     private static final String SQL_QUERY_SELECT = "SELECT id_expression,title,regular_expression_value,valid_exemple,information_message,error_message"
             + " FROM  regularexpression_regular_expression ";
-
-    /**
-     * Generates a new primary key
-     *
-     * @param plugin
-     *            the plugin
-     * @return The new primary key
-     */
-    public int newPrimaryKey( Plugin plugin )
-    {
-        int nKey = 1;
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK, plugin ) )
-        {
-            daoUtil.executeQuery( );
-            if ( daoUtil.next( ) )
-            {
-                nKey = daoUtil.getInt( 1 ) + 1;
-            }
-        }
-        return nKey;
-    }
 
     /**
      * Insert a new record in the table.
@@ -90,16 +69,19 @@ public final class RegularExpressionDAO implements IRegularExpressionDAO
      */
     public void insert( RegularExpression regularExpression, Plugin plugin )
     {
-        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, Statement.RETURN_GENERATED_KEYS, plugin ) )
         {
-            regularExpression.setIdExpression( newPrimaryKey( plugin ) );
-            daoUtil.setInt( 1, regularExpression.getIdExpression( ) );
-            daoUtil.setString( 2, regularExpression.getTitle( ) );
-            daoUtil.setString( 3, regularExpression.getValue( ) );
-            daoUtil.setString( 4, regularExpression.getValidExemple( ) );
-            daoUtil.setString( 5, regularExpression.getInformationMessage( ) );
-            daoUtil.setString( 6, regularExpression.getErrorMessage( ) );
+            daoUtil.setString( 1, regularExpression.getTitle( ) );
+            daoUtil.setString( 2, regularExpression.getValue( ) );
+            daoUtil.setString( 3, regularExpression.getValidExemple( ) );
+            daoUtil.setString( 4, regularExpression.getInformationMessage( ) );
+            daoUtil.setString( 5, regularExpression.getErrorMessage( ) );
             daoUtil.executeUpdate( );
+
+            if ( daoUtil.nextGeneratedKey( ) )
+            {
+                regularExpression.setIdExpression( daoUtil.getGeneratedKeyInt( 1 ) );
+            }
         }
     }
 
@@ -163,13 +145,12 @@ public final class RegularExpressionDAO implements IRegularExpressionDAO
     {
         try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin ) )
         {
-            daoUtil.setInt( 1, regularExpression.getIdExpression( ) );
-            daoUtil.setString( 2, regularExpression.getTitle( ) );
-            daoUtil.setString( 3, regularExpression.getValue( ) );
-            daoUtil.setString( 4, regularExpression.getValidExemple( ) );
-            daoUtil.setString( 5, regularExpression.getInformationMessage( ) );
-            daoUtil.setString( 6, regularExpression.getErrorMessage( ) );
-            daoUtil.setInt( 7, regularExpression.getIdExpression( ) );
+            daoUtil.setString( 1, regularExpression.getTitle( ) );
+            daoUtil.setString( 2, regularExpression.getValue( ) );
+            daoUtil.setString( 3, regularExpression.getValidExemple( ) );
+            daoUtil.setString( 4, regularExpression.getInformationMessage( ) );
+            daoUtil.setString( 5, regularExpression.getErrorMessage( ) );
+            daoUtil.setInt( 6, regularExpression.getIdExpression( ) );
             daoUtil.executeUpdate( );
         }
     }
