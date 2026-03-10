@@ -2,7 +2,7 @@
      <!-- Plugin Informations --> 
     <name>regularexpression</name>
     <class>fr.paris.lutece.plugins.regularexpression.service.RegularExpressionPlugin</class>
-    <version>4.0.4-SNAPSHOT</version>
+    <version>4.0.4-beta-01</version>
     <description>digglike.plugin.description</description>
     <documentation/>
     <installation/>
