@@ -3,7 +3,7 @@
     <name>regularexpression</name>
     <class>fr.paris.lutece.plugins.regularexpression.service.RegularExpressionPlugin</class>
     <version>4.0.5-SNAPSHOT</version>
-    <description>digglike.plugin.description</description>
+    <description>regularexpression.plugin.description</description>
     <documentation/>
     <installation/>
     <changes/>
