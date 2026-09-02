@@ -2,7 +2,7 @@
      <!-- Plugin Informations --> 
     <name>regularexpression</name>
     <class>fr.paris.lutece.plugins.regularexpression.service.RegularExpressionPlugin</class>
-    <version>4.0.5-SNAPSHOT</version>
+    <version>4.0.5-beta-01</version>
     <description>regularexpression.plugin.description</description>
     <documentation/>
     <installation/>
