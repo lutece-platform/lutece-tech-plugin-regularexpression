@@ -11,7 +11,7 @@
     <description>regularexpression.plugin.description</description>
     <provider>regularexpression.plugin.provider</provider>
     <provider-url>http://lutece.paris.fr</provider-url>
-    <icon-url>images/admin/skin/plugins/regularexpression/regularexpression.png</icon-url>
+    <icon-url>themes/shared/plugins/regularexpression/images/admin/regularexpression.svg</icon-url>
     <copyright>Copyright 2001-2025 Mairie de Paris</copyright>
     <db-pool-required>1</db-pool-required>
     <!--  Specific plugin CSS stylesheet   --> 
@@ -24,7 +24,7 @@
             <feature-description>regularexpression.adminFeature.regularexpression_management.description</feature-description>
             <feature-level>0</feature-level>
             <feature-url>jsp/admin/plugins/regularexpression/ManageRegularExpression.jsp</feature-url>
-           	<feature-icon-url>images/admin/skin/plugins/regularexpression/regularexpression.png</feature-icon-url>
+           	<feature-icon-url>themes/shared/plugins/regularexpression/images/admin/regularexpression.svg</feature-icon-url>
         </admin-feature>
      </admin-features>
    </plug-in>

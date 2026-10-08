@@ -1,4 +1,4 @@
- <#include "/admin/util/editor/editor.html" />
+<#include "/admin/util/editor/editor.html" />
 <@pageContainer>
     <@pageColumn>
 		<@pageHeader title='#i18n{regularexpression.modify_regular_expression.title}' />
@@ -11,7 +11,7 @@
 				<@input type='text' id='value' name='value' value='${expression.value}' />
 			</@formGroup>
 			<@formGroup labelFor='valid_exemple' labelKey='#i18n{regularexpression.modify_regular_expression.label_valid_exemple}' helpKey='#i18n{regularexpression.modify_regular_expression.label_valid_exemple_comment}' mandatory=true>
-				<@input type='text' name='valid_exemple' value='${expression.validExemple}' />
+				<@input type='text' id='valid_exemple' name='valid_exemple' value='${expression.validExemple}' />
 			</@formGroup>
 			<@formGroup labelFor='information_message' labelKey='#i18n{regularexpression.modify_regular_expression.label_information_message}' helpKey='#i18n{regularexpression.modify_regular_expression.label_information_message_comment}' mandatory=true>
 				<@input type='textarea' richtext=true name='information_message' id='information_message' cols=90>${expression.informationMessage}</@input>
@@ -23,7 +23,7 @@
 				<@button type='submit' title='#i18n{regularexpression.modify_regular_expression.button_save}' buttonIcon='check' class='form-validation'/>
 				<@aButton href='jsp/admin/plugins/regularexpression/ManageRegularExpression.jsp' title='#i18n{regularexpression.modify_regular_expression.button_cancel}' buttonIcon='x' color='default' class='form-validation'/>
 			</@formGroup>
-		</@tform> 
+		</@tform>
 	</@pageColumn>
 </@pageContainer>
 <@initEditor />
