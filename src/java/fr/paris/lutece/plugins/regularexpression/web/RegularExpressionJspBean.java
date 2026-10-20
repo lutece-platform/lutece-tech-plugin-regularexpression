@@ -39,6 +39,7 @@ import fr.paris.lutece.portal.service.admin.AdminUserService;
 import fr.paris.lutece.portal.service.i18n.I18nService;
 import fr.paris.lutece.portal.service.message.AdminMessage;
 import fr.paris.lutece.portal.service.message.AdminMessageService;
+import fr.paris.lutece.portal.service.message.MessageHtml;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.regularexpression.IRegularExpressionService;
 import fr.paris.lutece.portal.service.regularexpression.RegularExpressionRemovalListenerService;
@@ -345,7 +346,7 @@ public class RegularExpressionJspBean extends PluginAdminPageJspBean
 
         if ( !RegularExpressionRemovalListenerService.getService( ).checkForRemoval( strIdExpression, listErrors, getLocale( ) ) )
         {
-            String strCause = AdminMessageService.getFormattedList( listErrors, getLocale( ) );
+            MessageHtml strCause = AdminMessageService.getFormattedList( listErrors, getLocale( ) );
             Object [ ] args = {
                     strCause
             };
