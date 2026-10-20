@@ -109,8 +109,8 @@ public final class RegularExpressionDAO implements IRegularExpressionDAO
                 regularExpression.setTitle( daoUtil.getString( 2 ) );
                 regularExpression.setValue( daoUtil.getString( 3 ) );
                 regularExpression.setValidExemple( daoUtil.getString( 4 ) );
-                regularExpression.setInformationMessage( daoUtil.getString( 5 ) );
-                regularExpression.setErrorMessage( daoUtil.getString( 6 ) );
+                regularExpression.setInformationMessage( RegularExpressionMessageText.toText( daoUtil.getString( 5 ) ) );
+                regularExpression.setErrorMessage( RegularExpressionMessageText.toText( daoUtil.getString( 6 ) ) );
             }
         }
         return regularExpression;
@@ -176,8 +176,8 @@ public final class RegularExpressionDAO implements IRegularExpressionDAO
                 regularExpression.setTitle( daoUtil.getString( 2 ) );
                 regularExpression.setValue( daoUtil.getString( 3 ) );
                 regularExpression.setValidExemple( daoUtil.getString( 4 ) );
-                regularExpression.setInformationMessage( daoUtil.getString( 5 ) );
-                regularExpression.setErrorMessage( daoUtil.getString( 6 ) );
+                regularExpression.setInformationMessage( RegularExpressionMessageText.toText( daoUtil.getString( 5 ) ) );
+                regularExpression.setErrorMessage( RegularExpressionMessageText.toText( daoUtil.getString( 6 ) ) );
                 regularExpressionList.add( regularExpression );
             }
         }

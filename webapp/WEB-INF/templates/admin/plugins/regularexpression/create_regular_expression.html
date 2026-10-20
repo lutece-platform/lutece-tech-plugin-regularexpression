@@ -1,4 +1,3 @@
-<#include "/admin/util/editor/editor.html" />
 <@pageContainer>
     <@pageColumn>
 		<@pageHeader title='#i18n{regularexpression.create_regular_expression.title}' />
@@ -13,10 +12,10 @@
 				<@input type='text' id='valid_exemple' name='valid_exemple' value='' />
 			</@formGroup>
 			<@formGroup labelFor='information_message' labelKey='#i18n{regularexpression.create_regular_expression.label_information_message}' helpKey='#i18n{regularexpression.create_regular_expression.label_information_message_comment}' mandatory=true>
-				<@input type='textarea' richtext=true name='information_message' id='information_message' rows=2 />
+				<@input type='textarea' name='information_message' id='information_message' rows=2 />
 			</@formGroup>
 			<@formGroup labelFor='error_message' labelKey='#i18n{regularexpression.create_regular_expression.label_error_message}' helpKey='#i18n{regularexpression.create_regular_expression.label_error_message_comment}' mandatory=true>
-				<@input type='textarea' richtext=true name='error_message' id='error_message' rows=2 />
+				<@input type='textarea' name='error_message' id='error_message' rows=2 />
 			</@formGroup>
 			<@formGroup>
 				<@button type='submit' title='#i18n{regularexpression.create_regular_expression.button_save}' buttonIcon='check' class='form-validation' />
@@ -25,4 +24,3 @@
 		</@tform>
 	</@pageColumn>
 </@pageContainer>
-<@initEditor />
